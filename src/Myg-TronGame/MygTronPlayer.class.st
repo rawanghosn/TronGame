@@ -2,8 +2,7 @@ Class {
 	#name : #MygTronPlayer,
 	#superclass : #MygTronMov,
 	#instVars : [
-		'facing',
-		'background'
+		'facing'
 	],
 	#category : #'Myg-TronGame-Model'
 }
@@ -52,5 +51,17 @@ MygTronPlayer >> facing: aCpDirection [
 MygTronPlayer >> initialize [ 
 
 	super initialize.
-	facing := CpSouthDirection
+	facing := CpEastDirection 
+]
+
+{ #category : #testing }
+MygTronPlayer >> isPlayer [ 
+^true
+]
+
+{ #category : #accessing }
+MygTronPlayer >> move: aCpDirection [
+
+	self facing: aCpDirection class.
+	^ super move: aCpDirection
 ]

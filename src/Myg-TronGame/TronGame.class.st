@@ -70,15 +70,13 @@ Have fun !' asRopedText foreground: Color white).
 
 { #category : #'as yet unclassified' }
 TronGame class >> menuLevel [ 
-    | menu  stream selector tmp |
+    | menu  stream selector |
     menu := ToMenu new.
     menu label: (ToLabel text: 'Levels').
     menu icon: (ToImage inner: (Smalltalk ui icons iconNamed: #solidMenu)).
 
     stream := 'Level 1'.  "Specify your level here"
     selector := 'level1Grid'.  "Specify your grid here"
-    tmp := MygTronBoardElement class selectors select: [ :each |
-        each = selector ].
     menu addItem: ((ToButtonMenuItem new labelText: stream) whenClickedDo: [
         MygTronBoardElement openWithModel: (MygTronBoard perform: selector asSymbol)
     ]).

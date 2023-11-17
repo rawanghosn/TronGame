@@ -2,7 +2,8 @@ Class {
 	#name : #MygTronMov,
 	#superclass : #MygTronElement,
 	#classVars : [
-		'background'
+		'background',
+		'position'
 	],
 	#category : #'Myg-TronGame-Model'
 }
@@ -30,4 +31,43 @@ MygTronMov >> configured [
 MygTronMov >> defaultBackground [
 
 	^ MygTronGround new
+]
+
+{ #category : #accessing }
+MygTronMov >> move: aCpDirection [
+
+	| newPosition neighbor |
+	newPosition := aCpDirection * self position.
+	neighbor := self board atPosition: newPosition.
+	^ self moveIn: neighbor going: aCpDirection
+]
+
+{ #category : #move }
+MygTronMov >> moveEast [
+
+	^ self move: CpDirection east
+]
+
+{ #category : #move }
+MygTronMov >> moveNorth [ 
+	^ self move: CpDirection north
+]
+
+{ #category : #move }
+MygTronMov >> moveSouth [
+
+	^ self move: CpDirection south
+]
+
+{ #category : #move }
+MygTronMov >> moveWest [
+
+	^ self move: CpDirection west
+]
+
+{ #category : #accessing }
+MygTronMov >> position: aPoint [
+
+	position := aPoint.
+	self background position: aPoint
 ]

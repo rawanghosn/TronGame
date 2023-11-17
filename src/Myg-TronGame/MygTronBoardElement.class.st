@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'board',
 		'backgroundLayer',
-		'foregroundLayer'
+		'foregroundLayer',
+		'directionDict'
 	],
 	#category : #'Myg-TronGame-UI'
 }
@@ -58,6 +59,11 @@ MygTronBoardElement >> board: aTronBoard [
 ]
 
 { #category : #accessing }
+MygTronBoardElement >> directionDict [ 
+	^ directionDict 
+]
+
+{ #category : #accessing }
 MygTronBoardElement >> foregroundLayer [
 
 	^foregroundLayer
@@ -71,11 +77,14 @@ MygTronBoardElement >> foregroundLayer: aBlElement [
 
 { #category : #initialization }
 MygTronBoardElement >> initialize [
+
 	super initialize.
-	"self initializeDirectionDict."
+	self initializeDirectionDict.
 	self
 		background: (BlBackground paint: Color veryLightGray);
 		layout: BlFrameLayout new;
+		addEventHandlerOn: BlKeyDownEvent
+		do: [ :anEvent | self manageEvent: anEvent ];
 		requestFocus
 ]
 
@@ -115,6 +124,16 @@ MygTronBoardElement >> initializeBackgroundLayer [
 ]
 
 { #category : #initialization }
+MygTronBoardElement >> initializeDirectionDict [
+
+	directionDict := {
+		        (#DOWN -> CpDirection south).
+		        (#UP -> CpDirection north).
+		        (#LEFT -> CpDirection west).
+		        (#RIGHT -> CpDirection east) } asDictionary.
+]
+
+{ #category : #initialization }
 MygTronBoardElement >> initializeForegroundLayer [
 
 	| layer |
@@ -148,6 +167,32 @@ MygTronBoardElement >> initializeForegroundLayer [
 		boxElement updateBackgroundColor ].
 
 	self foregroundLayer: layer
+]
+
+{ #category : #initialization }
+MygTronBoardElement >> manageEvent: anEvent [
+
+	| player moved direction neighborElement elements |
+	"anEvent key name = #SPACE ifTrue: [
+		self resetBoard.
+		^ self ]."
+	anEvent key name = #ESCAPE ifTrue: [
+		self space close.
+		^ self ].
+	"board isFinished ifTrue: [ ^ self ]."
+	player := self board player.
+Halt now.
+	direction := self directionDict
+		             at: anEvent key name
+		             ifAbsent: [ ^ self ].
+	elements := self
+		            elementsToUpdateAtPosition: player position
+		            goingIn: direction.
+	moved := player move: direction.
+
+	neighborElement := elements second.
+
+	moved ifTrue: [self updateElements: elements ]
 ]
 
 { #category : #'as yet unclassified' }

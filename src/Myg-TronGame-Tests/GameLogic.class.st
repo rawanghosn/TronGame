@@ -14,6 +14,15 @@ GameLogic >> setUp [
 	
 	board := MygTronBoard  configureGrid: 
 		         ((MygLevelImporter
-			          fromString: '#@  @#'
+			          fromString: '#@  #'
 			          fromPackage: MygTronBoard package) do: [ :each | each configured ]).
+]
+
+{ #category : #'as yet unclassified' }
+GameLogic >> testMoveCount [
+
+| manager|
+manager := MygTronGameManager new.
+self assert: board printString equals: '#@  #'.
+self assert: manager currentMoveCount equals: 0.
 ]
