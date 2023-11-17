@@ -9,10 +9,12 @@ MygTronBoard class >> level1Grid [
 
 	| level |
 	level := 
-'######
- #    #
- #    #
- ######'.
+'####################
+ #        #
+ #        #
+ #        #
+ #        #
+ ####################'.
 
 	^ self configureGrid:
 		  (MygLevelImporter fromString: level fromPackage: self package)

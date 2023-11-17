@@ -30,6 +30,36 @@ MygTronBoxElement class >> initialize [
 ]
 
 { #category : #'accessing - icons' }
+MygTronBoxElement class >> playerDownIcon [
+	"Private - Generated method"
+
+	^ Icons at: #playerDownIcon ifAbsentPut: [
+		  Form fromBinaryStream:
+			  self playerDownIconContents base64Decoded asByteArray readStream ]
+]
+
+{ #category : #'accessing - icons' }
+MygTronBoxElement class >> playerDownIconContents [
+
+	^ 'iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAD3ElEQVR4XuWYP2tUQRTFDYgpRLAIGkUwRkRZEKNYWAQECyGBgCCYStTCwnwGi1T5BFpYaWGrnY2VhSCC2FlYG7URBC380zw5A7/l7GTe27cqOpO5cHhv5829O+fcO3fe7o76rX6r3+q3+q1+q9/qt/qtfqvf6rf/ZTt3zzZgamq62bYk24gfvHyrmT482N7kRRKCTlzYc25lC3mvClA0eWUYIiLs5PVs18yREbI+p9jqgLzICCLJvcPHIe1+xW4NMgmUyZQAqXGJIhRNPiaWIto1p1gByLwItGW9De5T7P73Jsb+dlJ9tkHcJIsSIdXF48y6EDyPybt4RQoQk4GQd3rII4gLwdFYnABarJe0yHG+p/a34POoFn83KE4AL3kR+PHmaYCLoHnxOGRdgGJPgpQAkHXyAqQZ15V5xw/MlSWAFuxVkCLrnxnz8c2Ht8PnVxs3m3sXFssSQYv1TIuMPv/89DEgJo8APNd8F0DPixQA8gKZFBDEoTGeay4+zC1SAAESq683AwlB9y5C23OyX5wALgICfPn2PZC4svE43McVoDE90xzduwDFkXcRBLI9WFwKaBOA51QF/sURPzE71wAR8FLuC/nI12MVQ35l+Wrz/Mn9AH1ua3xtoCHKlziKmb0IkHd7/+FFMzu9r/MESJ0E8pGvW/YikLFYgDMn15rFpUfhCsE2+NxYACoqW/J319dHFq17BLi49jJcfU+n4HPx93j6jixFcAFiKKMipSt7ug0+NxUrewEEEeEqKJs3HnweyWobfC7+HlPI7mjUgmhwghaphsXCRUxZHUceMBfSxCJ+dj+OeNlxaNF+HFLafeBbhThx/OwE4Fcer7A0NapApFTafYAA7HfBfxjpu7IUYGH/0SH8vUBEEGBc9hGA0qfheezsBGBhb++cbr4+Oz8UwJujb4G2zPsWiLu9Yiq2vsNFzkYAyCOAVwEvN5DrKn3m8M7gAhMfEbIToHl3PcBF0CutCwDBVOPze/nI18kTO0sBfIEugkiIEHCS48YRgJjEjbdZVltAi7x26lhYoBpVnP1JjkL5KoZiKWbWFaBFxX0AASYlD1wA3//ZCRBXgS+Sru/l3ZV1nuMTi5sl+fg49Aboxx5ZpcE5GI/neyPM7vjrshR5GpuQmk/DTIlQ3P+CkInP+S4yv+OTtQDxCxCl/zd9shcg7up9BJjEp4gKIJN9BYj9ShSgOTQ/38yfGIxg78yMiHSRCXNiP8Ua45efAFr4YOHsED2JDIWLfUsSIJBwAhMQ2UIelFQFSQJ/KoBQjACQWL60OsQEBJK+xW2DFvwr//qtfutpvwBSavUchoxN+gAAAABJRU5ErkJggg=='
+]
+
+{ #category : #'accessing - icons' }
+MygTronBoxElement class >> playerRightIcon [
+	"Private - Generated method"
+
+	^ Icons at: #playerRightIcon ifAbsentPut: [
+		  Form fromBinaryStream:
+			  self playerRightIconContents base64Decoded asByteArray readStream ]
+]
+
+{ #category : #'accessing - icons' }
+MygTronBoxElement class >> playerRightIconContents [
+
+	^ 'iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAADTklEQVR4XuWXMWtUQRSFEwhuEQIWi64iGFckYUGMksJiQbAQEggIgqlELSzMb7BIlV8QCyst0sbOxspCEEHsLKyN2giCFhqbkTN4Hic3M7qd3DsXLu+9mRfY77t3Zl6m2o/2o/1oP9qP9qP9aD/aj/aj/Wg//kcc6Z9JmmEh7djM7CADn7xxP/VOjxKew8IrIK5IgCPnLq8dgrdd4bYzCA9QggOY4JhD4j3O6ztMt93BFidsDZ6SNPmOW3j8cIIRFFAKj3sd1zn3+wIFEIyVVvhaQhqXRQh4W/Va6rzr04EbWanF/wWuotxK0A5g6+sGaOEJWpKA6/R0z7+AkgQ7rt2i3w9uBdijrnQU6hzPfABTgjt4K4CAVoIejYDkHO733z3PV5fVR+BH8xNWz3R9ZnVLwHjm2MKJeb8CFJ6wFKOgCmzH3QrgMuAHDWDebN3rKq2Qv758zmmFuBVACdruBNrbedBVGfeQ8ujqOCeeFR7PrgXoZmjBeF1/u5cToMgQ1bcSuB8QWiv97cfPnIC9ufU0loBSJ1CAlTAar+QMJ4ASAIP1btd5LV2vf43FwXxCcqObRALeCQO/tnorvXz2eCIJGMM8N8QQ8B8/vUoMjF06v9GJqOWgdyy/614AKq8BGUhIuLbxOo1XdhOXCJNzriWUqk94JuDvPvmaJdnEOOW4FID1+3Bz8xB0SQKqXZpjh7juAEigCK2wBa0JwpzbDtDdnSJKXYEqsxM0OR5CAI49HocKjyA81r3NEB2Af3NxtPFUsMuAu34pcRK4FcAPHRXAZUAJCs9TQavvWgDaHgKWjp/tUgUAXte+LgXC8+9cCkDV8ePThzs5v7+4kp8BTni7AeoY3uXfuBRAAMLj+n77Yh5X2NLady8AgR8OYAtPAWz1WvLv3QugBOTtC+cOCPibBLfrv9YFSFbU7valzdDtCVCSoGk/egCMTRHAejKEEcBNkYC2/QFs4TkWToC2OgWw+nYZhBJgK2xB9buA3wkhBdRAbfVDCrDVJyTnwnZAqfoE//NKGi6Oco6WlvP11HCIOab7yECExL0BPCCAEpgRJBQBj/b7nQDc6/zq9fWcuA8hgFUnoKbthkpOhZGASrPCyChtPpGEyBVuP7zGb3ukwHwaKb/xAAAAAElFTkSuQmCC'
+]
+
+{ #category : #'accessing - icons' }
 MygTronBoxElement class >> wallIcon [
 	"Private - Generated method"
 	^ Icons at: #wallIcon ifAbsentPut: [
