@@ -1,7 +1,7 @@
 Class {
 	#name : #TronGame,
 	#superclass : #Object,
-	#category : #'Myg-TronGame'
+	#category : #'Myg-TronGame-UI'
 }
 
 { #category : #'as yet unclassified' }

@@ -1,7 +1,7 @@
 Class {
 	#name : #MygTronGround,
 	#superclass : #MygTronElement,
-	#category : #'Myg-TronGame'
+	#category : #'Myg-TronGame-Model'
 }
 
 { #category : #'default encoding' }

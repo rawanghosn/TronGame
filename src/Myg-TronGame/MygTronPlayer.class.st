@@ -1,16 +1,28 @@
 Class {
 	#name : #MygTronPlayer,
-	#superclass : #MygTronElement,
+	#superclass : #MygTronMov,
 	#instVars : [
-		'facing'
+		'facing',
+		'background'
 	],
-	#category : #'Myg-TronGame'
+	#category : #'Myg-TronGame-Model'
 }
 
 { #category : #'default encoding' }
 MygTronPlayer class >> textualMapCharacter [
-
 	^ $@
+]
+
+{ #category : #accessing }
+MygTronPlayer >> background [
+
+	^background
+]
+
+{ #category : #accessing }
+MygTronPlayer >> background: anObject [
+
+	background := anObject
 ]
 
 { #category : #accessing }
@@ -18,10 +30,10 @@ MygTronPlayer >> backgroundRepresentation [
 
 	| dict |
 	dict := {
-		        (CpNorthDirection -> MygSkBoxElement playerUpIcon).
-		        (CpWestDirection -> MygSkBoxElement playerLeftIcon).
-		        (CpSouthDirection -> MygSkBoxElement playerDownIcon).
-		        (CpEastDirection -> MygSkBoxElement playerRightIcon) } asDictionary.
+		        (CpNorthDirection -> MygTronBoxElement playerUpIcon).
+		        (CpWestDirection -> MygTronBoxElement playerLeftIcon).
+		        (CpSouthDirection -> MygTronBoxElement playerDownIcon).
+		        (CpEastDirection -> MygTronBoxElement playerRightIcon) } asDictionary.
 	^ dict at: self facing
 ]
 

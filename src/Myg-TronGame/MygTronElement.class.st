@@ -1,7 +1,7 @@
 Class {
 	#name : #MygTronElement,
 	#superclass : #MygAbstractBox,
-	#category : #'Myg-TronGame'
+	#category : #'Myg-TronGame-Model'
 }
 
 { #category : #'default encoding' }
