@@ -63,6 +63,26 @@ MygTronBoardElement >> directionDict [
 	^ directionDict 
 ]
 
+{ #category : #'as yet unclassified' }
+MygTronBoardElement >> elementsToUpdateAtPosition: aPoint goingIn: aCpDirection [
+
+	| layer elements playerElement neighborElement nextNeighborElement |
+	layer := self foregroundLayer.
+	playerElement := (layer childNamed: aPoint asString) firstChild.
+	neighborElement := (layer childNamed:
+		                    (aCpDirection * aPoint) asString) firstChild.
+	elements := {
+		            playerElement.
+		            neighborElement } asOrderedCollection.
+	(neighborElement board grid at: neighborElement positionInField)
+		class = MygTronWall ifFalse: [
+		nextNeighborElement := (layer childNamed:
+			                       (aCpDirection * (aCpDirection * aPoint))
+				                       asString) firstChild.
+		elements add: nextNeighborElement ].
+	^ elements
+]
+
 { #category : #accessing }
 MygTronBoardElement >> foregroundLayer [
 
@@ -181,7 +201,6 @@ MygTronBoardElement >> manageEvent: anEvent [
 		^ self ].
 	"board isFinished ifTrue: [ ^ self ]."
 	player := self board player.
-Halt now.
 	direction := self directionDict
 		             at: anEvent key name
 		             ifAbsent: [ ^ self ].
@@ -210,4 +229,10 @@ MygTronBoardElement >> openWithModel: aTronBoard [
 	space root background: Color red muchLighter.
 	space root layout: BlFrameLayout new.
 	space show
+]
+
+{ #category : #'as yet unclassified' }
+MygTronBoardElement >> updateElements: anOrderedCollection [
+
+	anOrderedCollection do: [ :each | each boxForForeground updateBackgroundColor ]
 ]

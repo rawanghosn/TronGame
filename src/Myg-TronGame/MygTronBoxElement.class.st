@@ -110,6 +110,16 @@ MygTronBoxElement >> box: aTronElement [
 	box := aTronElement.
 ]
 
+{ #category : #accessing }
+MygTronBoxElement >> boxForForeground [
+
+	self box:
+		(((self board atPosition: self positionInField) class inheritsFrom:
+			  MygTronMov)
+			 ifFalse: [ MygTronGround new ]
+			 ifTrue: [ (self board atPosition: self positionInField) ])
+]
+
 { #category : #initialization }
 MygTronBoxElement >> initialize [
 
