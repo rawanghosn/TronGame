@@ -29,8 +29,8 @@ MygTronPlayer >> backgroundRepresentation [
 
 	| dict |
 	dict := {
-		        "(CpNorthDirection -> MygTronBoxElement playerUpIcon).
-		        (CpWestDirection -> MygTronBoxElement playerLeftIcon)."
+		        (CpNorthDirection -> MygTronBoxElement playerUpIcon).
+		        (CpWestDirection -> MygTronBoxElement playerLeftIcon).
 		        (CpSouthDirection -> MygTronBoxElement playerDownIcon).
 		        (CpEastDirection -> MygTronBoxElement playerRightIcon) } asDictionary.
 	^ dict at: self facing

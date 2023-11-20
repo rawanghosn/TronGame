@@ -101,10 +101,10 @@ MygTronBoardElement >> initialize [
 	super initialize.
 	self initializeDirectionDict.
 	self
-		background: (BlBackground paint: Color veryLightGray);
+		background: (BlBackground paint: Color black );
 		layout: BlFrameLayout new;
 		addEventHandlerOn: BlKeyDownEvent
-		do: [ :anEvent | self manageEvent: anEvent ];
+		do: [ :anEvent | self manageEvents: anEvent ];
 		requestFocus
 ]
 
@@ -190,7 +190,7 @@ MygTronBoardElement >> initializeForegroundLayer [
 ]
 
 { #category : #initialization }
-MygTronBoardElement >> manageEvent: anEvent [
+MygTronBoardElement >> manageEvents: anEvent [
 
 	| player moved direction neighborElement elements |
 	"anEvent key name = #SPACE ifTrue: [
@@ -211,7 +211,7 @@ MygTronBoardElement >> manageEvent: anEvent [
 
 	neighborElement := elements second.
 
-	moved ifTrue: [self updateElements: elements ]
+	moved ifTrue: [self updateElement: elements ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -232,7 +232,7 @@ MygTronBoardElement >> openWithModel: aTronBoard [
 ]
 
 { #category : #'as yet unclassified' }
-MygTronBoardElement >> updateElements: anOrderedCollection [
+MygTronBoardElement >> updateElement: anOrderedCollection [
 
 	anOrderedCollection do: [ :each | each boxForForeground updateBackgroundColor ]
 ]

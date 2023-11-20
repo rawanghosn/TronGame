@@ -19,9 +19,9 @@ MygTronBoard class >> level1Grid [
  #                  #
  #                  #
  #                  #
- #  @         @     #
+ #           @      #       
  ####################'.
-	tmp := MygLevelImporter fromString: level fromPackage: MygSkBoard package.
+	tmp := MygLevelImporter fromString: level fromPackage: self package.
 	tmp := tmp collect: [ :each | each configured ].
 	tmp width < tmp height ifTrue: [ tmp := tmp rotateLeft ].
 
@@ -64,9 +64,9 @@ MygTronBoard >> gameManager [
 ]
 
 { #category : #accessing }
-MygTronBoard >> gameManager: aSkGameManager [
+MygTronBoard >> gameManager: aTronGameManager [
 
-	gamemanager:= aSkGameManager 
+	gamemanager:= aTronGameManager 
 ]
 
 { #category : #accessing }
