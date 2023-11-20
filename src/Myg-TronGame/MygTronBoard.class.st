@@ -26,7 +26,6 @@ MygTronBoard class >> createWithBoard:  aCTNewArray2D managedBy: aTronGameManage
 
 { #category : #'as yet unclassified' }
 MygTronBoard class >> level1Grid [
-
 ^
 '####################
  #                  #
