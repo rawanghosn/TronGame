@@ -36,26 +36,26 @@ MygTronBoardElement >> board [
 { #category : #accessing }
 MygTronBoardElement >> board: aTronBoard [
 
-	board := aTronBoard.
-	self layout:
-		(BlGridLayout horizontal cellSpacing: 5 - (board grid width // 5)).
-	self constraintsDo: [ :aLayoutConstraints |
-		aLayoutConstraints horizontal matchParent.
-		aLayoutConstraints vertical matchParent ].
-	self padding: (BlInsets all: 5).
-	self layout columnCount: board grid width.
-	
+board := aTronBoard.
+self layout:
+(BlGridLayout horizontal cellSpacing: 5 - (board grid width // 5)).
+self constraintsDo: [ :aLayoutConstraints |
+aLayoutConstraints horizontal matchParent.
+aLayoutConstraints vertical matchParent ].
+self padding: (BlInsets all: 5).
+self layout columnCount: board grid width.
+
 "board: aSkBoard
 
-	board := aSkBoard.
-	self constraintsDo: [ :c |
-		c frame vertical alignCenter.
-		c horizontal matchParent.
-		c vertical fitContent ]."
-	
-	self
-		initializeBackgroundLayer;
-		initializeForegroundLayer
+board := aSkBoard.
+self constraintsDo: [ :c |
+c frame vertical alignCenter.
+c horizontal matchParent.
+c vertical fitContent ]."
+
+self
+initializeBackgroundLayer;
+initializeForegroundLayer
 ]
 
 { #category : #accessing }
