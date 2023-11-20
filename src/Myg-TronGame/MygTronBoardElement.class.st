@@ -158,7 +158,7 @@ MygTronBoardElement >> initializeForegroundLayer [
 
 	| layer |
 	layer := BlElement new
-		         background: Color transparent;
+		         background: Color yellow;
 		         layout: (BlGridLayout horizontal
 				          columnCount: board width;
 				          cellSpacing: 2);
@@ -193,9 +193,9 @@ MygTronBoardElement >> initializeForegroundLayer [
 MygTronBoardElement >> manageEvents: anEvent [
 
 	| player moved direction neighborElement elements |
-	"anEvent key name = #SPACE ifTrue: [
+	anEvent key name = #SPACE ifTrue: [
 		self resetBoard.
-		^ self ]."
+		^ self ].
 	anEvent key name = #ESCAPE ifTrue: [
 		self space close.
 		^ self ].
