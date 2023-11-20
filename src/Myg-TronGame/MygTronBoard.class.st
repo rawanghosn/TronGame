@@ -12,9 +12,6 @@ Class {
 { #category : #'as yet unclassified' }
 MygTronBoard class >> level1Grid [
 
-	| level tmp |
-		
-	level := 
 '####################
  #                  #
  #                  #
