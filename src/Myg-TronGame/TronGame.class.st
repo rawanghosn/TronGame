@@ -81,7 +81,7 @@ TronGame class >> menuLevel [
     menu addItem: ((ToButtonMenuItem new labelText: stream) whenClickedDo: [
 	       | string |
 	
-				string := MygTronBoard level1Grid asString.
+				string := MygTronBoard level1Grid.
 				manager launchFromString: string.
         "MygTronBoardElement openWithModel: (MygTronBoard perform: selector asSymbol)"
     ]).
