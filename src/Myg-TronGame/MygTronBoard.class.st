@@ -9,37 +9,23 @@ Class {
 	#category : #'Myg-TronGame-Model'
 }
 
-{ #category : #initialization }
-MygTronBoard class >> createWithBoard: aCtNewArray2D [
-     
-^ self new 
-	configureGrid: aCtNewArray2D;
-	yourself 
-]
-
-{ #category : #initialization }
-MygTronBoard class >> createWithBoard:  aCTNewArray2D managedBy: aTronGameManager [
-^(self createWithBoard: aCTNewArray2D)
-        gameManager: aTronGameManager;
-		  yourself 
-]
-
 { #category : #'as yet unclassified' }
 MygTronBoard class >> level1Grid [
 
-^
+	| level tmp |
+		
+	level := 
 '####################
  #                  #
  #                  #
  #                  #
  #           @      #       
  ####################'.
-"	tmp := MygLevelImporter fromString: level fromPackage: self package.
+	tmp := MygLevelImporter fromString: level fromPackage: self package.
 	tmp := tmp collect: [ :each | each configured ].
 	tmp width < tmp height ifTrue: [ tmp := tmp rotateLeft ].
 
-	^ self configureGrid: tmp"
-	
+	^ self configureGrid: tmp
 ]
 
 { #category : #accessing }
@@ -63,11 +49,6 @@ MygTronBoard >> atPosition: aCpPositionable [
 MygTronBoard >> configureGrid: aCTNewArray2D [
  super configureGrid: aCTNewArray2D.
  self setPlayer.
-]
-
-{ #category : #initialization }
-MygTronBoard >> createWithBoard:  aCTNewArray2D managedBy: aTronGameManager [
-^ (self createW)
 ]
 
 { #category : #enumerating }

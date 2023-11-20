@@ -36,26 +36,26 @@ MygTronBoardElement >> board [
 { #category : #accessing }
 MygTronBoardElement >> board: aTronBoard [
 
-board := aTronBoard.
-self layout:
-(BlGridLayout horizontal cellSpacing: 5 - (board grid width // 5)).
-self constraintsDo: [ :aLayoutConstraints |
-aLayoutConstraints horizontal matchParent.
-aLayoutConstraints vertical matchParent ].
-self padding: (BlInsets all: 5).
-self layout columnCount: board grid width.
-
+	board := aTronBoard.
+	self layout:
+		(BlGridLayout horizontal cellSpacing: 5 - (board grid width // 5)).
+	self constraintsDo: [ :aLayoutConstraints |
+		aLayoutConstraints horizontal matchParent.
+		aLayoutConstraints vertical matchParent ].
+	self padding: (BlInsets all: 5).
+	self layout columnCount: board grid width.
+	
 "board: aSkBoard
 
-board := aSkBoard.
-self constraintsDo: [ :c |
-c frame vertical alignCenter.
-c horizontal matchParent.
-c vertical fitContent ]."
-
-self
-initializeBackgroundLayer;
-initializeForegroundLayer
+	board := aSkBoard.
+	self constraintsDo: [ :c |
+		c frame vertical alignCenter.
+		c horizontal matchParent.
+		c vertical fitContent ]."
+	
+	self
+		initializeBackgroundLayer;
+		initializeForegroundLayer
 ]
 
 { #category : #accessing }
@@ -158,7 +158,7 @@ MygTronBoardElement >> initializeForegroundLayer [
 
 	| layer |
 	layer := BlElement new
-		         background: Color yellow;
+		         background: Color transparent;
 		         layout: (BlGridLayout horizontal
 				          columnCount: board width;
 				          cellSpacing: 2);
@@ -193,9 +193,9 @@ MygTronBoardElement >> initializeForegroundLayer [
 MygTronBoardElement >> manageEvents: anEvent [
 
 	| player moved direction neighborElement elements |
-	anEvent key name = #SPACE ifTrue: [
+	"anEvent key name = #SPACE ifTrue: [
 		self resetBoard.
-		^ self ].
+		^ self ]."
 	anEvent key name = #ESCAPE ifTrue: [
 		self space close.
 		^ self ].
