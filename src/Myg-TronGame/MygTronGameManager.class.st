@@ -3,10 +3,27 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'currentBoardElement',
-		'currentMoveCount'
+		'currentMoveCount',
+		'menu'
 	],
 	#category : #'Myg-TronGame-Model'
 }
+
+{ #category : #'as yet unclassified' }
+MygTronGameManager class >> importFromString: aString [
+
+	| tmp |	
+	tmp := MygLevelImporter fromString: aString  fromPackage: self package.
+	tmp := tmp collect: [ :each | each configured ].
+	tmp width < tmp height ifTrue: [ tmp := tmp rotateLeft ].
+
+	^ tmp
+]
+
+{ #category : #accessing }
+MygTronGameManager class >> menu: aToMenu [
+^ self new menu: aToMenu 
+]
 
 { #category : #accessing }
 MygTronGameManager >> currentBoardElement [
@@ -37,4 +54,33 @@ MygTronGameManager >> initialize [
 
 	super initialize.
 	currentMoveCount := 0.
+]
+
+{ #category : #'as yet unclassified' }
+MygTronGameManager >> launchAgain [
+
+	self launchFromString: (self currentBoardElement board printString).
+]
+
+{ #category : #'as yet unclassified' }
+MygTronGameManager >> launchFromString: aString [
+
+	| board |
+	self currentMoveCount: 0.
+	self currentBoardElement: MygTronBoardElement new.
+	board := MygTronBoard 
+					createWithBoard: (self class importFromString: aString ) 
+					managedBy: self.
+	self currentBoardElement openWithModel: board
+
+]
+
+{ #category : #accessing }
+MygTronGameManager >> menu [
+^menu
+]
+
+{ #category : #accessing }
+MygTronGameManager >> menu: m [
+  menu := m
 ]

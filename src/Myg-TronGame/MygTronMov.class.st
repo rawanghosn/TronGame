@@ -20,6 +20,13 @@ MygTronMov >> background: anObject [
 	background := anObject
 ]
 
+{ #category : #accessing }
+MygTronMov >> board: aBoard [ 
+
+	super board: aBoard.
+	self background board: aBoard
+]
+
 { #category : #initialization }
 MygTronMov >> configured [
 

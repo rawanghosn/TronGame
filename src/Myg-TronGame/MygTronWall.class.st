@@ -14,3 +14,10 @@ MygTronWall class >> textualMapCharacter [
 MygTronWall >> backgroundRepresentation [
 	^ MygTronBoxElement wallIcon  
 ]
+
+{ #category : #move }
+MygTronWall >> bringIn: anActor going: aDirection [
+	"anActor does not move in a wall. Nothing enter a wall."
+	
+	^ false
+]
