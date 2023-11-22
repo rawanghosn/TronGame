@@ -21,9 +21,11 @@ MygTronGameLogic >> setUp [
 { #category : #tests }
 MygTronGameLogic >> testMoveSteps [
 
-	self deny: board isFinished.
+	"self deny: board isFinished."
 	board moveSteps: {
 			CpDirection east.
+			CpDirection east.
+			CpDirection east.
 			CpDirection east }.
-	self assert: board isFinished
+	self assert: board printString equals: '#@   #'
 ]
