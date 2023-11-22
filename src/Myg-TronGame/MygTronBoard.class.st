@@ -9,20 +9,44 @@ Class {
 	#category : #'Myg-TronGame-Model'
 }
 
+{ #category : #initialization }
+MygTronBoard class >> createWithBoard: aCtNewArray2D [
+     
+^ self new 
+	configureGrid: aCtNewArray2D;
+	yourself 
+]
+
+{ #category : #initialization }
+MygTronBoard class >> createWithBoard:  aCTNewArray2D managedBy: aTronGameManager [
+^(self createWithBoard: aCTNewArray2D)
+        gameManager: aTronGameManager;
+		  yourself 
+]
+
 { #category : #'as yet unclassified' }
 MygTronBoard class >> level1Grid [
-
+^
 '####################
  #                  #
  #                  #
  #                  #
  #           @      #       
  ####################'.
-	tmp := MygLevelImporter fromString: level fromPackage: self package.
+"	tmp := MygLevelImporter fromString: level fromPackage: self package.
 	tmp := tmp collect: [ :each | each configured ].
 	tmp width < tmp height ifTrue: [ tmp := tmp rotateLeft ].
 
-	^ self configureGrid: tmp
+	^ self configureGrid: tmp"
+	
+]
+
+{ #category : #printing }
+MygTronBoard >> asciiString [ 
+
+	^ String streamContents: [ :st |
+		self printOn: st ]	
+
 ]
 
 { #category : #accessing }
@@ -48,10 +72,27 @@ MygTronBoard >> configureGrid: aCTNewArray2D [
  self setPlayer.
 ]
 
+{ #category : #initialization }
+MygTronBoard >> createWithBoard:  aCTNewArray2D managedBy: aTronGameManager [
+^ (self createW)
+]
+
 { #category : #enumerating }
 MygTronBoard >> do: aBlock [
 
 	grid do: aBlock
+]
+
+{ #category : #actions }
+MygTronBoard >> endGame [
+
+	ended ifTrue: [ ^ self ].
+	ended := true.
+]
+
+{ #category : #actions }
+MygTronBoard >> ended [ 
+^ ended
 ]
 
 { #category : #accessing }
@@ -64,6 +105,11 @@ MygTronBoard >> gameManager [
 MygTronBoard >> gameManager: aTronGameManager [
 
 	gamemanager:= aTronGameManager 
+]
+
+{ #category : #accessing }
+MygTronBoard >> height [
+^ grid height
 ]
 
 { #category : #accessing }
@@ -81,6 +127,25 @@ MygTronBoard >> moveSteps: aCollectionOfDirection [
 { #category : #accessing }
 MygTronBoard >> player [
 ^player
+]
+
+{ #category : #printing }
+MygTronBoard >> printOn: aStream [
+
+	(1 to: grid height)
+		do: [ :rowNumber |
+			1 to: grid width do: [ :columnNumber |
+				| el elClass |
+				el := self atColumn: columnNumber atRow: rowNumber .
+				elClass := el class.
+				aStream nextPut: elClass textualMapCharacter ] ]
+		separatedBy: [ aStream cr ]
+]
+
+{ #category : #initialization }
+MygTronBoard >> reset [
+
+	self gameManager launchAgain
 ]
 
 { #category : #initialization }

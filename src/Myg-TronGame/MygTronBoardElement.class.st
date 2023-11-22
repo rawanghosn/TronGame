@@ -36,26 +36,26 @@ MygTronBoardElement >> board [
 { #category : #accessing }
 MygTronBoardElement >> board: aTronBoard [
 
-	board := aTronBoard.
-	self layout:
-		(BlGridLayout horizontal cellSpacing: 5 - (board grid width // 5)).
-	self constraintsDo: [ :aLayoutConstraints |
-		aLayoutConstraints horizontal matchParent.
-		aLayoutConstraints vertical matchParent ].
-	self padding: (BlInsets all: 5).
-	self layout columnCount: board grid width.
-	
-"board: aSkBoard
+"board := aTronBoard.
+self layout:
+(BlGridLayout horizontal cellSpacing: 5 - (board grid width // 5)).
+self constraintsDo: [ :aLayoutConstraints |
+aLayoutConstraints horizontal matchParent.
+aLayoutConstraints vertical matchParent ].
+self padding: (BlInsets all: 5).
+self layout columnCount: board grid width."
 
-	board := aSkBoard.
-	self constraintsDo: [ :c |
-		c frame vertical alignCenter.
-		c horizontal matchParent.
-		c vertical fitContent ]."
-	
-	self
-		initializeBackgroundLayer;
-		initializeForegroundLayer
+"board: aSkBoard"
+
+board := aTronBoard.
+self constraintsDo: [ :c |
+c frame vertical alignCenter.
+c horizontal matchParent.
+c vertical fitContent ].
+
+self
+initializeBackgroundLayer;
+initializeForegroundLayer
 ]
 
 { #category : #accessing }
@@ -193,13 +193,13 @@ MygTronBoardElement >> initializeForegroundLayer [
 MygTronBoardElement >> manageEvents: anEvent [
 
 	| player moved direction neighborElement elements |
-	"anEvent key name = #SPACE ifTrue: [
+	anEvent key name = #SPACE ifTrue: [
 		self resetBoard.
-		^ self ]."
+		^ self ].
 	anEvent key name = #ESCAPE ifTrue: [
 		self space close.
 		^ self ].
-	"board isFinished ifTrue: [ ^ self ]."
+	board isFinished ifTrue: [ ^ self ].
 	player := self board player.
 	direction := self directionDict
 		             at: anEvent key name
@@ -229,6 +229,13 @@ MygTronBoardElement >> openWithModel: aTronBoard [
 	space root background: Color red muchLighter.
 	space root layout: BlFrameLayout new.
 	space show
+]
+
+{ #category : #initialization }
+MygTronBoardElement >> resetBoard [
+
+	self space close.
+	self board reset
 ]
 
 { #category : #'as yet unclassified' }
