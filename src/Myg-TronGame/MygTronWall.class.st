@@ -19,5 +19,5 @@ MygTronWall >> backgroundRepresentation [
 MygTronWall >> bringIn: anActor going: aDirection [
 	"anActor does not move in a wall. Nothing enter a wall."
 	
-	^ self board gameManager currentBoardElement resetBoard .
+	^ false .
 ]

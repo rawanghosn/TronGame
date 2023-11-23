@@ -160,7 +160,7 @@ MygTronBoard >> updatePositionOf: aTronMovable from: previousPosition [
 	self
 		atColumn: previousPosition x
 		atRow: previousPosition y
-		put: aTronMovable defaultBackground.
+		put: MygTronTrail new.
 	"put the current position element as previous background of the moving element."
 	aTronMovable background:
 		(self atColumn: aTronMovable position x atRow: aTronMovable position y).

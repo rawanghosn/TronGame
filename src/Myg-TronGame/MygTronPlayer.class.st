@@ -27,13 +27,15 @@ MygTronPlayer >> background: anObject [
 { #category : #accessing }
 MygTronPlayer >> backgroundRepresentation [
 
-	| dict |
+	"| dict |
 	dict := {
 		        (CpNorthDirection -> MygTronBoxElement playerUpIcon).
 		        (CpWestDirection -> MygTronBoxElement playerLeftIcon).
 		        (CpSouthDirection -> MygTronBoxElement playerDownIcon).
 		        (CpEastDirection -> MygTronBoxElement playerRightIcon) } asDictionary.
-	^ dict at: self facing
+	^ dict at: self facing"
+	
+^ Color yellow.
 ]
 
 { #category : #accessing }
@@ -62,6 +64,6 @@ MygTronPlayer >> isPlayer [
 { #category : #accessing }
 MygTronPlayer >> move: aCpDirection [
 
-	self facing: aCpDirection class.
+	"self facing: aCpDirection class."
 	^ super move: aCpDirection
 ]
