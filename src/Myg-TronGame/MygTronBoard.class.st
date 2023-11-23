@@ -31,10 +31,10 @@ MygTronBoard class >> level1Grid [
  #            #
  #            #
  #            #
- #           @# 
+ #         @  # 
  #            # 
  #            #
-  #############'.
+ ##############'.
 "	tmp := MygLevelImporter fromString: level fromPackage: self package.
 	tmp := tmp collect: [ :each | each configured ].
 	tmp width < tmp height ifTrue: [ tmp := tmp rotateLeft ].
@@ -157,7 +157,7 @@ MygTronBoard >> updatePositionOf: aTronMovable from: previousPosition [
 	self
 		atColumn: previousPosition x
 		atRow: previousPosition y
-		put: MygTronTrail new.
+		put: MygTronTrail new background.
 	"put the current position element as previous background of the moving element."
 	aTronMovable background:
 		(self atColumn: aTronMovable position x atRow: aTronMovable position y).
