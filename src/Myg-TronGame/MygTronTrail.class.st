@@ -11,6 +11,12 @@ MygTronTrail class >> textualMapCharacter [
 ]
 
 { #category : #accessing }
+MygTronTrail >> background [ 
+^ self
+
+]
+
+{ #category : #accessing }
 MygTronTrail >> backgroundRepresentation [
 
 	^ Color yellow

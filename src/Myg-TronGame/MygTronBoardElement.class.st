@@ -211,7 +211,7 @@ MygTronBoardElement >> manageEvents: anEvent [
 
 	neighborElement := elements second.
 
-	moved ifTrue: [self updateElement: elements ]
+  moved ifTrue: [self updateElement: elements ]
 ]
 
 { #category : #'as yet unclassified' }
