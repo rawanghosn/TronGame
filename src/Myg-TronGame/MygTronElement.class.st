@@ -47,3 +47,11 @@ MygTronElement >> moveIn: aNeighbor going: aDirection [
 	
 	^ aNeighbor bringIn: self going: aDirection
 ]
+
+{ #category : #printing }
+MygTronElement >> printOn: aStream [ 
+
+	super printOn: aStream.
+	aStream nextPut: $-.
+	position printOn: aStream
+]

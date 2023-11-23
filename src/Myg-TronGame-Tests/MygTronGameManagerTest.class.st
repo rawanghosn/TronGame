@@ -60,11 +60,11 @@ MygTronGameManagerTest >> testMoveCount [
 	self assert: boardElement board printString equals: '# @   #'.
 	self assert: manager currentMoveCount equals: 0.
 	boardElement board player moveWest.
-	self assert: boardElement board printString equals: '#@    #'.
+	self assert: boardElement board printString equals: '#@-   #'.
 	self assert: manager currentMoveCount equals: 1.
 	boardElement board player moveEast.
-	self assert: boardElement board printString equals: '# @   #'.
-	self assert: manager currentMoveCount equals: 2.
+	self assert: boardElement board printString equals: '#@-   #'. "cant move back on trail"
+	self assert: manager currentMoveCount equals: 1.
 	space := manager currentBoardElement space.
 	space universe closeSpaceSynchronously: space
 ]
