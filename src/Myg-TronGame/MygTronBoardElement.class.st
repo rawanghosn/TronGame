@@ -199,7 +199,7 @@ MygTronBoardElement >> manageEvents: anEvent [
 	anEvent key name = #ESCAPE ifTrue: [
 		self space close.
 		^ self ].
-	board isFinished ifTrue: [ ^ self ].
+	"board isFinished ifTrue: [ ^ self ]."
 	player := self board player.
 	direction := self directionDict
 		             at: anEvent key name

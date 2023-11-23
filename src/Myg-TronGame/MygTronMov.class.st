@@ -37,7 +37,7 @@ MygTronMov >> configured [
 { #category : #initialization }
 MygTronMov >> defaultBackground [
 
-	^ MygTronTrail new
+	^ MygTronGround new
 ]
 
 { #category : #accessing }
