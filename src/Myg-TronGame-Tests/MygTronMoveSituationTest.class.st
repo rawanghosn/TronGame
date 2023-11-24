@@ -25,6 +25,18 @@ MygTronMoveSituationTest >> testBasicMoveInformation [
 ]
 
 { #category : #tests }
+MygTronMoveSituationTest >> testPlayerAvailable [
+
+    | board |
+    board := MygTronBoard createWithBoard:
+                 ((MygLevelImporter
+                      fromString: '# @    #'
+                      fromPackage: MygTronBoard package) collect: [ :each | each configured ]).
+    self assert: board player position x equals: 3.
+    self assert: board player position y equals: 1
+]
+
+{ #category : #tests }
 MygTronMoveSituationTest >> testPlayerBumpingInTrail [
 
 	| board position player |
