@@ -28,12 +28,13 @@ MygTronBoard class >> createWithBoard:  aCTNewArray2D managedBy: aTronGameManage
 MygTronBoard class >> level1Grid [
 ^
 ' #############
- #            #
- #            #
- #            #
- #         @  # 
- #            # 
- #            #
+ #|||||||||||||#
+ #  | | | | |  #
+ #|||||||||||@|#
+ #  | | | | |  # 
+ #|||||||||||||# 
+ #  | | | | |  #
+ #|||||||||||||#
  ##############'.
 "	tmp := MygLevelImporter fromString: level fromPackage: self package.
 	tmp := tmp collect: [ :each | each configured ].
