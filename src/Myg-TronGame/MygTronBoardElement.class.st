@@ -74,12 +74,12 @@ MygTronBoardElement >> elementsToUpdateAtPosition: aPoint goingIn: aCpDirection 
 	elements := {
 		            playerElement.
 		            neighborElement } asOrderedCollection.
-	(neighborElement board grid at: neighborElement positionInField)
+	"(neighborElement board grid at: neighborElement positionInField)
 		class = MygTronWall ifFalse: [
 		nextNeighborElement := (layer childNamed:
 			                       (aCpDirection * (aCpDirection * aPoint))
 				                       asString) firstChild.
-		elements add: nextNeighborElement ].
+		elements add: nextNeighborElement ]."
 	^ elements
 ]
 
@@ -105,7 +105,8 @@ MygTronBoardElement >> initialize [
 		layout: BlFrameLayout new;
 		addEventHandlerOn: BlKeyDownEvent
 		do: [ :anEvent | self manageEvents: anEvent ];
-		requestFocus
+		requestFocus.
+	
 ]
 
 { #category : #initialization }
@@ -201,7 +202,8 @@ MygTronBoardElement >> manageEvents: anEvent [
 		^ self ].
 	"board isFinished ifTrue: [ ^ self ]."
 	player := self board player.
-	direction := self directionDict
+	self moveplayer: player direction: anEvent. 
+	"direction := self directionDict
 		             at: anEvent key name
 		             ifAbsent: [ ^ self ].
 	elements := self
@@ -211,7 +213,30 @@ MygTronBoardElement >> manageEvents: anEvent [
 
 	neighborElement := elements second.
 
-  moved ifTrue: [self updateElement: elements ]
+  moved ifTrue: [self updateElement: elements ]"
+
+
+]
+
+{ #category : #'as yet unclassified' }
+MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
+|direction elements moved neighborElement|
+5 timesRepeat: [
+    "Assuming 'move' is a method in your Player class that updates its position"
+  direction := self directionDict
+		             at: anEvent key name
+		             ifAbsent: [ ^ self ].
+	elements := self
+		            elementsToUpdateAtPosition: aPlayer position
+		            goingIn: direction.
+	moved := aPlayer move: direction.
+
+	neighborElement := elements second.
+
+  moved ifTrue: [self updateElement: elements ].
+  (Delay forSeconds: 0.1) wait. "Wait for one second before the next iteration"
+].
+
 ]
 
 { #category : #'as yet unclassified' }

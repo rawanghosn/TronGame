@@ -15,3 +15,10 @@ MygTronGround >> backgroundRepresentation [
 
 	^ Color transparent
 ]
+
+{ #category : #move }
+MygTronGround >> bringIn: anActor going: aDirection [
+	"anActor does not move in a ground. Nothing enter a ground."
+	
+	^ false .
+]

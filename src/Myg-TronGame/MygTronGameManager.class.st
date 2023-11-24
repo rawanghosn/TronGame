@@ -16,7 +16,6 @@ MygTronGameManager class >> importFromString: aString [
 	tmp := MygLevelImporter fromString: aString  fromPackage: self package.
 	tmp := tmp collect: [ :each | each configured ].
 	tmp width < tmp height ifTrue: [ tmp := tmp rotateLeft ].
-
 	^ tmp
 ]
 
