@@ -13,5 +13,5 @@ MygTronCorridor class >> textualMapCharacter [
 { #category : #accessing }
 MygTronCorridor >> backgroundRepresentation [
 
-	^ Color transparent
+	^ Color blue 
 ]
