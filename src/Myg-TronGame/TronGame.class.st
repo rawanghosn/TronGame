@@ -65,11 +65,11 @@ Have fun!' asRopedText foreground: Color white).
 TronGame class >> menuLevel [ 
     | menu  stream selector manager|
     menu := ToMenu new.
-    menu label: (ToLabel text: 'Levels').
+    menu label: (ToLabel text: 'Play').
     menu icon: (ToImage inner: (Smalltalk ui icons iconNamed: #solidMenu)).
 
-    stream := 'Level 1'.  "Specify your level here"
-    selector := 'level1Grid'.  "Specify your grid here"
+    stream := 'Start'.  "Specify your level here"
+    selector := 'level1Grid'.  "Specify your grid here" 
 	 manager := MygTronGameManager menu: menu.
     menu addItem: ((ToButtonMenuItem new labelText: stream) whenClickedDo: [
 	       | string |
