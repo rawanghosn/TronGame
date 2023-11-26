@@ -221,7 +221,7 @@ MygTronBoardElement >> manageEvents: anEvent [
 { #category : #'as yet unclassified' }
 MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
 |direction elements moved neighborElement|
-5 timesRepeat: [
+2 timesRepeat: [
     "Assuming 'move' is a method in your Player class that updates its position"
   direction := self directionDict
 		             at: anEvent key name
@@ -251,7 +251,7 @@ MygTronBoardElement >> openWithModel: aTronBoard [
 
 	self board: aTronBoard.
 	
-	space root background: Color red muchLighter.
+	space root background: Color blue.
 	space root layout: BlFrameLayout new.
 	space show
 ]
