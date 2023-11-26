@@ -230,7 +230,6 @@ MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
 		            elementsToUpdateAtPosition: aPlayer position
 		            goingIn: direction.
 	moved := aPlayer move: direction.
-
 	neighborElement := elements second.
 
   moved ifTrue: [self updateElement: elements ].
