@@ -152,6 +152,7 @@ MygTronBoardElement >> initializeDirectionDict [
 		        (#UP -> CpDirection north).
 		        (#LEFT -> CpDirection west).
 		        (#RIGHT -> CpDirection east) } asDictionary.
+
 ]
 
 { #category : #initialization }
@@ -203,6 +204,8 @@ MygTronBoardElement >> manageEvents: anEvent [
 	"board isFinished ifTrue: [ ^ self ]."
 	player := self board player.
 	self moveplayer: player direction: anEvent. 
+	
+
 	"direction := self directionDict
 		             at: anEvent key name
 		             ifAbsent: [ ^ self ].
