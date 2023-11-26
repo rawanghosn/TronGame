@@ -27,28 +27,21 @@ TronGame class >> menuHelp [
 		(ToImage inner: (Smalltalk ui icons iconNamed: #glamorousHelp)).
 	menu whenClickedDo: [
 		| container lab space |
-		lab := ToLabel text: ('How to play:
-		 
-Takuzu is a japanese puzzle game also known as binary sudoku.
+		lab := ToLabel text: ('Welcome to TronGame!
 
-The goal is to fill the grid with red or blue cells following these 3 rules :
+Game Presentation: TronGame is a classic and iconic game where players control lines of light and must strategically maneuver to avoid colliding with the trails left behind by themselves or their opponents. As players move their light cycle, they leave a trail behind them, and these trails persist on the game board until the round ends.
 
-	- You can''t have more than 2 cells of the same color aligned.
-	- The must be as many red and blue cells on each row and column
-	- Rows and Columns must be all different one to another
-	
------
+Game Objective: Eliminate opponents by forcing them to collide with either their own or your light cycle trails. Be the last player standing to win the round.
 
-You can start playing with the ''Levels'' menu, with non-ambiguous levels from size 4x4 to 12x12.
+Key Press: Use controls to direct the light cycles.
 
-You can also play on 4x4 and 6x6 randomly generated levels in the ''Random'' menu.
-The random generation is a bit messy so you may encounter ambiguous levels, improvements might appear in the future.
-			
-Have fun !' asRopedText foreground: Color white).
+Collision: When a player''s light cycle collides with a trail or a barrier, the round ends, and a round winner is determined.
+
+Have fun!' asRopedText foreground: Color white).
 		lab beMultiLine.
 		lab hMatchParent.
 		container := BlElement new
-			             background: Color yellow;
+			             background: Color lightBlue;
 			             padding: (BlInsets all: 15);
 			             layout: BlLinearLayout vertical;
 			             constraintsDo: [ :c |
