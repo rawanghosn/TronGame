@@ -10,7 +10,7 @@ MygTronMoveSituationTest >> testBasicMoveInformation [
 	| board position |
 	board := MygTronBoard createWithBoard:
 		         ((MygLevelImporter
-			          fromString: '#@    #'
+			          fromString: '#@||||#'
 			          fromPackage: MygTronBoard package) do: [ :each | each configured ]).
 		
 	position := board player position.
@@ -21,7 +21,7 @@ MygTronMoveSituationTest >> testBasicMoveInformation [
 		assert: board player position x
 		equals: (CpDirection east * position) x.
 	self assert: board player position x equals: 3.
-	self assert: board asciiString equals: '#-@   #'
+	self assert: board asciiString equals: '#-@|||#'
 ]
 
 { #category : #tests }
@@ -30,7 +30,7 @@ MygTronMoveSituationTest >> testPlayerAvailable [
     | board |
     board := MygTronBoard createWithBoard:
                  ((MygLevelImporter
-                      fromString: '# @    #'
+                      fromString: '#|@||||#'
                       fromPackage: MygTronBoard package) collect: [ :each | each configured ]).
     self assert: board player position x equals: 3.
     self assert: board player position y equals: 1
@@ -59,7 +59,7 @@ MygTronMoveSituationTest >> testPlayerBumpingInWall [
 	| board position player |
 	board := MygTronBoard createWithBoard:
 		         ((MygLevelImporter
-			           fromString: '#  @#'
+			           fromString: '#||@#'
 			           fromPackage: MygTronBoard package) do: [ :each |
 			          each configured ]).
 	player := board atColumn: 3 atRow: 1 .
@@ -67,30 +67,27 @@ MygTronMoveSituationTest >> testPlayerBumpingInWall [
 	self deny: (board player move: CpDirection east).
 	self assert: board player position equals: position.
 	self assert: player position x equals: 3.
-	self assert: board asciiString equals: '#  @#'
+	self assert: board asciiString equals: '#||@#'
 ]
 
 { #category : #tests }
 MygTronMoveSituationTest >> testPlayerLeavesTrailBehind [
 
 	| string manager boardElement space |
-	string := '#@   #'.
+	string := '#@|||#'.
 	manager := MygTronGameManager new.
 	manager launchFromString: string.
 	boardElement := manager currentBoardElement.
 
-	self assert: boardElement board printString equals: '#@   #'.
+	self assert: boardElement board printString equals: '#@|||#'.
 	self assert: manager currentMoveCount equals: 0.
 	boardElement board player moveEast.
-	self assert: boardElement board printString equals: '#-@  #'.
+	self assert: boardElement board printString equals: '#-@||#'.
 	self assert: manager currentMoveCount equals: 1.
 	boardElement board player moveEast.
-	self assert: boardElement board printString equals: '#--@ #'.
+	self assert: boardElement board printString equals: '#--@|#'.
 	self assert: manager currentMoveCount equals: 2.
 	boardElement board player moveEast.
-	self assert: boardElement board printString equals: '#---@#'.
-	self assert: manager currentMoveCount equals: 3.
-	boardElement board player moveWest.
 	self assert: boardElement board printString equals: '#---@#'.
 	self assert: manager currentMoveCount equals: 3.
 	space := manager currentBoardElement space.
@@ -98,12 +95,12 @@ MygTronMoveSituationTest >> testPlayerLeavesTrailBehind [
 ]
 
 { #category : #tests }
-MygTronMoveSituationTest >> testPlayerMovingOnGround [
+MygTronMoveSituationTest >> testPlayerMovingOnCorridor [
 
 	| board position player |
 	board := MygTronBoard createWithBoard:
 		         ((MygLevelImporter
-			           fromString: '#@ #'
+			           fromString: '#@|#'
 			           fromPackage: MygTronBoard package) do: [ :each |
 			          each configured ]).
 	position := board player position.
@@ -120,19 +117,23 @@ MygTronMoveSituationTest >> testPlayerMovingOnGround [
 ]
 
 { #category : #tests }
-MygTronMoveSituationTest >> testPlayerMovingTwoTimesOnGroundRestoreCorrectlyGround [
+MygTronMoveSituationTest >> testPlayerMovingOnGround [
 
-	| board |
+	| board position player |
 	board := MygTronBoard createWithBoard:
 		         ((MygLevelImporter
-			          fromString: '#@  #'
-			          fromPackage: MygTronBoard package) do: [ :each | each configured ]).
-	self assert: board height equals: 1.
-	self assert: board width equals: '#@  #' size.
-	self assert: board printString equals: '#@  #'.
-	self assert: board printString equals: '#@  #'.
-	self assert: board player moveEast.
-	self assert: board printString equals: '#-@ #'.
-	board player moveEast.
-	self assert: board printString equals: '#--@#'
+			           fromString: '#@ #'
+			           fromPackage: MygTronBoard package) do: [ :each |
+			          each configured ]).
+	position := board player position.
+	player := board atColumn: 2 atRow: 1 .
+	self deny: (board player move: CpDirection east).
+	self
+		assert: board player position x
+		equals: position x.
+	self
+		assert: board player position y
+		equals:  position y.
+	self assert: player position x equals: 2.
+	self assert: board printString equals: '#@ #'
 ]

@@ -14,7 +14,7 @@ MygTronGameLogic >> setUp [
 	
 	board := MygTronBoard createWithBoard:
 		         ((MygLevelImporter
-			          fromString: '#@   #'
+			          fromString: '#@|||#'
 			          fromPackage: MygTronBoard package) do: [ :each | each configured ]).
 ]
 
@@ -26,6 +26,7 @@ MygTronGameLogic >> testMoveSteps [
 			CpDirection east.
 			CpDirection east.
 			CpDirection east.
+			CpDirection east.
 			CpDirection east }.
-	self assert: board printString equals: '#@   #'
+	self assert: board printString equals: '#---@#'
 ]

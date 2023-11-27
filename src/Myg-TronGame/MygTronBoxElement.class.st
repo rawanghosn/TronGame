@@ -146,7 +146,7 @@ MygTronBoxElement >> boxForForeground [
 	self box:
 		(((self board atPosition: self positionInField) class inheritsFrom:
 			  MygTronMov)
-			 ifFalse: [ MygTronTrail new ]
+			 ifFalse: [ MygTronTrail new board: self board ]
 			 ifTrue: [ (self board atPosition: self positionInField) ])
 ]
 

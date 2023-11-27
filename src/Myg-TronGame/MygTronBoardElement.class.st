@@ -193,7 +193,7 @@ MygTronBoardElement >> initializeForegroundLayer [
 { #category : #initialization }
 MygTronBoardElement >> manageEvents: anEvent [
 
-	| player moved direction neighborElement elements |
+	| player |
 	anEvent key name = #SPACE ifTrue: [
 		self resetBoard.
 		^ self ].
@@ -219,10 +219,28 @@ MygTronBoardElement >> manageEvents: anEvent [
 ]
 
 { #category : #'as yet unclassified' }
+MygTronBoardElement >> movePlayer: aPlayer direction: anEvent [
+    | direction elements moved neighborElement |
+    
+   self space root 
+	   when: anEvent  do: [ direction := self directionDict
+                         at: anEvent key name
+                         ifAbsent: [ ^ self ].
+        elements := self
+                        elementsToUpdateAtPosition: aPlayer position
+                        goingIn: direction.
+        moved := aPlayer move: direction.
+        neighborElement := elements second.
+
+        moved ifTrue: [ self updateElement: elements ].
+        (Delay forSeconds: 0.1) wait. "Wait for 0.1 seconds before the next iteration" ].
+       
+]
+
+{ #category : #'as yet unclassified' }
 MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
 |direction elements moved neighborElement|
-2 timesRepeat: [
-    "Assuming 'move' is a method in your Player class that updates its position"
+1 timesRepeat: [
   direction := self directionDict
 		             at: anEvent key name
 		             ifAbsent: [ ^ self ].

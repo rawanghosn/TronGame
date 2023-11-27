@@ -27,15 +27,16 @@ MygTronBoard class >> createWithBoard:  aCTNewArray2D managedBy: aTronGameManage
 { #category : #'as yet unclassified' }
 MygTronBoard class >> level1Grid [
 ^
-'#########
-#|||@|||#
-#| | | |#
-#|||||||#
-#| | | |#
-#|||||||#
-#| | | |#
-#|||||||#
-#########'.
+'###########
+#||||||||@#
+#| | | | |#
+#|||||||||#
+#| | | | |#
+#|||||||||#
+#| | | | |#
+#|||||||||#
+#|||||||||#
+###########'.
 "	tmp := MygLevelImporter fromString: level fromPackage: self package.
 	tmp := tmp collect: [ :each | each configured ].
 	tmp width < tmp height ifTrue: [ tmp := tmp rotateLeft ].
