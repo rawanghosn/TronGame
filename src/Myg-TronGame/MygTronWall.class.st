@@ -12,7 +12,7 @@ MygTronWall class >> textualMapCharacter [
 
 { #category : #accessing }
 MygTronWall >> backgroundRepresentation [
-	^ MygTronBoxElement wallIcon  
+	^ Color transparent 
 ]
 
 { #category : #move }
@@ -38,7 +38,7 @@ MygTronWall >> bringIn: anActor going: aDirection [
     when: BlKeyDownEvent do: [ :evt |
         keyDownBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ].
 
-	^ false .
+	^ true .
 ]
 
 { #category : #accessing }

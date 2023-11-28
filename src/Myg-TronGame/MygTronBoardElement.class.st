@@ -168,8 +168,9 @@ MygTronBoardElement >> initializeForegroundLayer [
 			         c vertical fitContent ].
 	self addChild: layer.
 	self board do: [ :aBox |
-		| boxElement tmpBox container |
-		tmpBox := aBox.
+		| boxElement tmpBox container|
+		
+    	tmpBox := aBox.
 		(aBox class inheritsFrom: MygTronMov ) ifFalse: [
 			tmpBox := MygTronGround new ].
 		boxElement := (MygTronBoxElement box: tmpBox)
@@ -182,8 +183,9 @@ MygTronBoardElement >> initializeForegroundLayer [
 				             c horizontal matchParent.
 				             c vertical fitContent ];
 			             addChild: boxElement;
-			clipChildren: false.
-
+			border: (BlBorder paint: Color white);
+	      clipChildren: false.
+      
 		layer addChild: container as: aBox position asString.
 		boxElement updateBackgroundColor ].
 
