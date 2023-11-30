@@ -5,7 +5,8 @@ Class {
 		'board',
 		'backgroundLayer',
 		'foregroundLayer',
-		'directionDict'
+		'directionDict1',
+		'directionDict2'
 	],
 	#category : #'Myg-TronGame-UI'
 }
@@ -59,8 +60,13 @@ initializeForegroundLayer
 ]
 
 { #category : #accessing }
-MygTronBoardElement >> directionDict [ 
-	^ directionDict 
+MygTronBoardElement >> directionDict1 [
+	^ directionDict1
+]
+
+{ #category : #accessing }
+MygTronBoardElement >> directionDict2 [
+	^ directionDict2
 ]
 
 { #category : #'as yet unclassified' }
@@ -147,11 +153,17 @@ MygTronBoardElement >> initializeBackgroundLayer [
 { #category : #initialization }
 MygTronBoardElement >> initializeDirectionDict [
 
-	directionDict := {
+	directionDict1 := {
 		        (#DOWN -> CpDirection south).
 		        (#UP -> CpDirection north).
 		        (#LEFT -> CpDirection west).
 		        (#RIGHT -> CpDirection east) } asDictionary.
+		
+		directionDict2 := {
+		        (#S -> CpDirection south).
+		        (#Z -> CpDirection north).
+		        (#Q -> CpDirection west).
+		        (#D -> CpDirection east) } asDictionary.
 ]
 
 { #category : #initialization }
@@ -195,7 +207,6 @@ MygTronBoardElement >> initializeForegroundLayer [
 { #category : #initialization }
 MygTronBoardElement >> manageEvents: anEvent [
 
-	| player |
 	anEvent key name = #SPACE ifTrue: [
 		self resetBoard.
 		^ self ].
@@ -203,8 +214,10 @@ MygTronBoardElement >> manageEvents: anEvent [
 		self space close.
 		^ self ].
 	"board isFinished ifTrue: [ ^ self ]."
-	player := self board player.
-	self moveplayer: player direction: anEvent. 
+	(directionDict1 includesKey: anEvent key name ) ifTrue: [ 
+	self moveplayer: self board player1 direction: anEvent.] 
+   ifFalse: [self moveplayer: self board player2 direction: anEvent. ].
+
 	"direction := self directionDict
 		             at: anEvent key name
 		             ifAbsent: [ ^ self ].
@@ -241,15 +254,20 @@ MygTronBoardElement >> movePlayer: aPlayer direction: anEvent [
 
 { #category : #'as yet unclassified' }
 MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
-|direction elements moved neighborElement|
+|direction1 direction2 elements moved neighborElement|
 1 timesRepeat: [
-  direction := self directionDict
+  direction1 := self directionDict1
 		             at: anEvent key name
-		             ifAbsent: [ ^ self ].
+		             ifAbsent: [ self directionDict2
+		             at: anEvent key name
+		             ifAbsent: [ ^ self ] ].
+  "direction2 := self directionDict2
+		             at: anEvent key name
+		             ifAbsent: [ ^ self ]."
 	elements := self
 		            elementsToUpdateAtPosition: aPlayer position
-		            goingIn: direction.
-	moved := aPlayer move: direction.
+		            goingIn: direction1.
+	moved := aPlayer move: direction1.
 	neighborElement := elements second.
 
   moved ifTrue: [self updateElement: elements ].

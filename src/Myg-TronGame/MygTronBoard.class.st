@@ -2,7 +2,8 @@ Class {
 	#name : #MygTronBoard,
 	#superclass : #MygBoard,
 	#instVars : [
-		'player',
+		'player1',
+		'player2',
 		'ended',
 		'gamemanager'
 	],
@@ -33,7 +34,7 @@ MygTronBoard class >> level1Grid [
 #|||||||||#
 #| | | | |#
 #|||||||||#
-#| | | | |#
+#+ | | | |#
 #|||||||||#
 #|||||||||#
 ###########'.
@@ -124,8 +125,13 @@ MygTronBoard >> moveSteps: aCollectionOfDirection [
 ]
 
 { #category : #accessing }
-MygTronBoard >> player [
-^player
+MygTronBoard >> player1 [
+^player1
+]
+
+{ #category : #accessing }
+MygTronBoard >> player2 [
+^player2
 ]
 
 { #category : #printing }
@@ -149,7 +155,8 @@ MygTronBoard >> reset [
 
 { #category : #initialization }
 MygTronBoard >> setPlayer [ 
- player := grid contents detect: #isPlayer
+ player1 := grid contents detect: #isPlayer1.
+ player2 := grid contents detect: #isPlayer2
 ]
 
 { #category : #move }

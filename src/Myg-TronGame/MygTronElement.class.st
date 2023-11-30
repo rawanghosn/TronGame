@@ -36,7 +36,12 @@ MygTronElement >> configured [
 ]
 
 { #category : #testing }
-MygTronElement >> isPlayer [ 
+MygTronElement >> isPlayer1 [
+	^false
+]
+
+{ #category : #testing }
+MygTronElement >> isPlayer2 [
 	^false
 ]
 

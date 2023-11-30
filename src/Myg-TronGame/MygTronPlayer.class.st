@@ -57,13 +57,6 @@ MygTronPlayer >> initialize [
 ]
 
 { #category : #testing }
-MygTronPlayer >> isPlayer [ 
+MygTronPlayer >> isPlayer1 [
 ^true
-]
-
-{ #category : #accessing }
-MygTronPlayer >> move: aCpDirection [
-
-	"self facing: aCpDirection class."
-	^ super move: aCpDirection
 ]
