@@ -15,7 +15,7 @@ MygTronGameManagerTest >> testIsBoardReset [
 #|||||||||#
 #| | | | |#
 #|||||||||#
-#| | | | |#
+#+ | | | |#
 #|||||||||#
 #|||||||||#
 ###########'.
@@ -30,11 +30,11 @@ MygTronGameManagerTest >> testIsBoardReset [
 #|||||||||#
 #| | | | |#
 #|||||||||#
-#| | | | |#
+#+ | | | |#
 #|||||||||#
 #|||||||||#
 ###########'.
-	boardElement board player moveWest.
+	boardElement board player1 moveWest.
 	self assert: boardElement board printString equals: 
 '###########
 #|||||||@-#
@@ -42,7 +42,7 @@ MygTronGameManagerTest >> testIsBoardReset [
 #|||||||||#
 #| | | | |#
 #|||||||||#
-#| | | | |#
+#+ | | | |#
 #|||||||||#
 #|||||||||#
 ###########'.

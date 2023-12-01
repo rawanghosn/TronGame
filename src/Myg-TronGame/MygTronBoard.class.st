@@ -121,7 +121,7 @@ MygTronBoard >> initialize [
 { #category : #move }
 MygTronBoard >> moveSteps: aCollectionOfDirection [
 
-	aCollectionOfDirection do: [ :each | player move: each ]
+	aCollectionOfDirection do: [ :each | player1 move: each ]
 ]
 
 { #category : #accessing }
@@ -163,10 +163,16 @@ MygTronBoard >> setPlayer [
 MygTronBoard >> updatePositionOf: aTronMovable from: previousPosition [
 	"Put back the previous position element."
 
-	self
+(aTronMovable class = MygTronPlayer) 
+ifTrue:  [self
 		atColumn: previousPosition x
 		atRow: previousPosition y
-		put: MygTronTrail new background.
+		put: MygTronTrail new background. ]
+ifFalse:  [ (aTronMovable class = MygTronPlayer2) ifTrue:
+	   [self
+		atColumn: previousPosition x
+		atRow: previousPosition y
+		put: MygTronTrail2 new background.] ] .
 	"put the current position element as previous background of the moving element."
 	aTronMovable background:
 		(self atColumn: aTronMovable position x atRow: aTronMovable position y).

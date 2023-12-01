@@ -14,19 +14,17 @@ MygTronGameLogic >> setUp [
 	
 	board := MygTronBoard createWithBoard:
 		         ((MygLevelImporter
-			          fromString: '#@|||#'
+			          fromString: '#@||||+#'
 			          fromPackage: MygTronBoard package) do: [ :each | each configured ]).
 ]
 
 { #category : #tests }
-MygTronGameLogic >> testMoveSteps [
+MygTronGameLogic >> testMoveStepsPlayer1 [
 
-	"self deny: board isFinished."
+	self assert: board ended equals: false.
 	board moveSteps: {
 			CpDirection east.
 			CpDirection east.
-			CpDirection east.
-			CpDirection east.
-			CpDirection east }.
-	self assert: board printString equals: '#---@#'
+			CpDirection east.}.
+	self assert: board printString equals: '#----@+#'
 ]

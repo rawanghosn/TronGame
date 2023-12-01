@@ -8,6 +8,11 @@ Class {
 	#category : #'Myg-TronGame-Model'
 }
 
+{ #category : #'as yet unclassified' }
+MygTronMov >> addtrail [ 
+^ self addtrail.
+]
+
 { #category : #accessing }
 MygTronMov >> background [
 

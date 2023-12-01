@@ -72,7 +72,7 @@ MygTronBoardElement >> directionDict2 [
 { #category : #'as yet unclassified' }
 MygTronBoardElement >> elementsToUpdateAtPosition: aPoint goingIn: aCpDirection [
 
-	| layer elements playerElement neighborElement nextNeighborElement |
+	| layer elements playerElement neighborElement |
 	layer := self foregroundLayer.
 	playerElement := (layer childNamed: aPoint asString) firstChild.
 	neighborElement := (layer childNamed:
@@ -254,7 +254,7 @@ MygTronBoardElement >> movePlayer: aPlayer direction: anEvent [
 
 { #category : #'as yet unclassified' }
 MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
-|direction1 direction2 elements moved neighborElement|
+|direction1 elements moved neighborElement|
 1 timesRepeat: [
   direction1 := self directionDict1
 		             at: anEvent key name

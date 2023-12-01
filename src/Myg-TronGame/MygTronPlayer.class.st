@@ -12,6 +12,11 @@ MygTronPlayer class >> textualMapCharacter [
 	^ $@
 ]
 
+{ #category : #'as yet unclassified' }
+MygTronPlayer >> addtrail [
+^ MygTronTrail new.
+]
+
 { #category : #accessing }
 MygTronPlayer >> background [
 
