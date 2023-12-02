@@ -143,18 +143,14 @@ MygTronBoxElement >> box: aTronElement [
 { #category : #accessing }
 MygTronBoxElement >> boxForForeground [
 
-"	self box:
+"		self box:
 		(((self board atPosition: self positionInField) class inheritsFrom:
 			  MygTronMov)
-			"" ifFalse: [ MygTronTrail new positionInField:  (self positionInField); board: self board ]""
-			 ifFalse: [ MygTronTrail new. ]
+			 ifFalse: [ MygTronTrail new.	]
+			 ""ifFalse: [ (self board atPosition: self positionInField) addtrail. ]""
 			 ifTrue: [ (self board atPosition: self positionInField) ])"
-			self box:
-		(((self board atPosition: self positionInField) class inheritsFrom:
-			  MygTronMov)
-			 ifFalse: [ MygTronTrail new.]
-			 "ifFalse: [ (self board atPosition: self positionInField) addtrail. ]"
-			 ifTrue: [ (self board atPosition: self positionInField) ])
+		self box: (self board atPosition: self positionInField)
+			
 ]
 
 { #category : #initialization }

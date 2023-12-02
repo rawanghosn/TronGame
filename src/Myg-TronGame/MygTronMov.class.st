@@ -3,7 +3,8 @@ Class {
 	#superclass : #MygTronElement,
 	#classVars : [
 		'background',
-		'position'
+		'position',
+		'trail'
 	],
 	#category : #'Myg-TronGame-Model'
 }
@@ -23,6 +24,11 @@ MygTronMov >> background [
 MygTronMov >> background: anObject [
 
 	background := anObject
+]
+
+{ #category : #accessing }
+MygTronMov >> backgroundRepresentation [ 
+^ self backgroundRepresentation 
 ]
 
 { #category : #accessing }

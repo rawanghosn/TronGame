@@ -25,6 +25,18 @@ MygTronMoveSituationTest >> testBasicMoveInformation [
 ]
 
 { #category : #tests }
+MygTronMoveSituationTest >> testPlayer1Available [
+
+    | board |
+    board := MygTronBoard createWithBoard:
+                 ((MygLevelImporter
+                      fromString: '#|@||||#'
+                      fromPackage: MygTronBoard package) collect: [ :each | each configured ]).
+    self assert: board player position x equals: 3.
+    self assert: board player position y equals: 1
+]
+
+{ #category : #tests }
 MygTronMoveSituationTest >> testPlayerAvailable [
 
     | board |
@@ -136,4 +148,18 @@ MygTronMoveSituationTest >> testPlayerMovingOnGround [
 		equals:  position y.
 	self assert: player position x equals: 2.
 	self assert: board printString equals: '#@ #'
+]
+
+{ #category : #tests }
+MygTronMoveSituationTest >> testPlayersAvailable [
+
+    | board |
+    board := MygTronBoard createWithBoard:
+                 ((MygLevelImporter
+                      fromString: '#+|@||||#'
+                      fromPackage: MygTronBoard package) collect: [ :each | each configured ]).
+    self assert: board player1 position x equals: 4.
+    self assert: board player1 position y equals: 1.
+    self assert: board player2 position x equals: 2.
+    self assert: board player2 position y equals: 1
 ]

@@ -1,9 +1,6 @@
 Class {
 	#name : #MygTronPlayer,
 	#superclass : #MygTronMov,
-	#instVars : [
-		'facing'
-	],
 	#category : #'Myg-TronGame-Model'
 }
 
@@ -18,18 +15,6 @@ MygTronPlayer >> addtrail [
 ]
 
 { #category : #accessing }
-MygTronPlayer >> background [
-
-	^background
-]
-
-{ #category : #accessing }
-MygTronPlayer >> background: anObject [
-
-	background := anObject
-]
-
-{ #category : #accessing }
 MygTronPlayer >> backgroundRepresentation [
 
 	"| dict |
@@ -41,24 +26,6 @@ MygTronPlayer >> backgroundRepresentation [
 	^ dict at: self facing"
 	
 ^ Color yellow.
-]
-
-{ #category : #accessing }
-MygTronPlayer >> facing [ 
-	^facing
-]
-
-{ #category : #accessing }
-MygTronPlayer >> facing: aCpDirection [
-	
-	facing := aCpDirection 
-]
-
-{ #category : #initialization }
-MygTronPlayer >> initialize [ 
-
-	super initialize.
-	facing := CpEastDirection 
 ]
 
 { #category : #testing }

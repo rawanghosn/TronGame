@@ -56,7 +56,7 @@ MygTronGameManagerTest >> testIsBoardReset [
 #|||||||||#
 #| | | | |#
 #|||||||||#
-#| | | | |#
+#+ | | | |#
 #|||||||||#
 #|||||||||#
 ###########'.
@@ -65,21 +65,42 @@ MygTronGameManagerTest >> testIsBoardReset [
 ]
 
 { #category : #'as yet unclassified' }
-MygTronGameManagerTest >> testMoveCount [
+MygTronGameManagerTest >> testMoveCountPlayer1 [
 
 	| string manager boardElement space |
-	string := '#||@||#'.
+	string := '#+||@||#'.
 	manager := MygTronGameManager new.
 	manager launchFromString: string.
 	boardElement := manager currentBoardElement.
 
-	self assert: boardElement board printString equals: '#||@||#'.
+	self assert: boardElement board printString equals: '#+||@||#'.
 	self assert: manager currentMoveCount equals: 0.
-	boardElement board player moveWest.
-	self assert: boardElement board printString equals: '#|@-||#'.
+	boardElement board player1 moveWest.
+	self assert: boardElement board printString equals: '#+|@-||#'.
 	self assert: manager currentMoveCount equals: 1.
-	boardElement board player moveWest.
-	self assert: boardElement board printString equals: '#@--||#'.
+	boardElement board player1 moveWest.
+	self assert: boardElement board printString equals: '#+@--||#'.
+	self assert: manager currentMoveCount equals: 2.
+	space := manager currentBoardElement space.
+	space universe closeSpaceSynchronously: space
+]
+
+{ #category : #tests }
+MygTronGameManagerTest >> testMoveCountPlayer2 [
+
+	| string manager boardElement space |
+	string := '#+||@||#'.
+	manager := MygTronGameManager new.
+	manager launchFromString: string.
+	boardElement := manager currentBoardElement.
+
+	self assert: boardElement board printString equals: '#+||@||#'.
+	self assert: manager currentMoveCount equals: 0.
+	boardElement board player2 moveEast.
+	self assert: boardElement board printString equals: '#-+|@||#'.
+	self assert: manager currentMoveCount equals: 1.
+	boardElement board player2 moveEast.
+	self assert: boardElement board printString equals: '#--+@||#'.
 	self assert: manager currentMoveCount equals: 2.
 	space := manager currentBoardElement space.
 	space universe closeSpaceSynchronously: space

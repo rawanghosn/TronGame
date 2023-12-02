@@ -19,7 +19,7 @@ MygTronTrail >> background [
 { #category : #accessing }
 MygTronTrail >> backgroundRepresentation [
 
-	^ Color yellow
+	^ self backgroundRepresentation 
 ]
 
 { #category : #move }

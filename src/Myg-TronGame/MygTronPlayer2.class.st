@@ -15,18 +15,6 @@ MygTronPlayer2 >> addtrail [
 ]
 
 { #category : #accessing }
-MygTronPlayer2 >> background [
-
-	^background
-]
-
-{ #category : #accessing }
-MygTronPlayer2 >> background: anObject [
-
-	background := anObject
-]
-
-{ #category : #accessing }
 MygTronPlayer2 >> backgroundRepresentation [
 	
 ^ Color blue.

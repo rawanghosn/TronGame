@@ -163,24 +163,28 @@ MygTronBoard >> setPlayer [
 MygTronBoard >> updatePositionOf: aTronMovable from: previousPosition [
 	"Put back the previous position element."
 
-(aTronMovable class = MygTronPlayer) 
-ifTrue:  [self
-		atColumn: previousPosition x
-		atRow: previousPosition y
-		put: MygTronTrail new background. ]
-ifFalse:  [ (aTronMovable class = MygTronPlayer2) ifTrue:
-	   [self
-		atColumn: previousPosition x
-		atRow: previousPosition y
-		put: MygTronTrail2 new background.] ] .
+	aTronMovable class = MygTronPlayer
+		ifTrue: [
+			self
+				atColumn: previousPosition x
+				atRow: previousPosition y
+				put: MygTronTrail1 new background ]
+		ifFalse: [
+			aTronMovable class = MygTronPlayer2 ifTrue: [
+				self
+					atColumn: previousPosition x
+					atRow: previousPosition y
+					put: MygTronTrail2 new background ] ].
 	"put the current position element as previous background of the moving element."
 	aTronMovable background:
-		(self atColumn: aTronMovable position x atRow: aTronMovable position y).
+		(self
+			 atColumn: aTronMovable position x
+			 atRow: aTronMovable position y).
 	"finally place the moving element to its new location"
 	self
 		atColumn: aTronMovable position x
 		atRow: aTronMovable position y
-		put: aTronMovable.
+		put: aTronMovable
 	"self isFinished ifTrue: [ self endGame ]"
 ]
 
