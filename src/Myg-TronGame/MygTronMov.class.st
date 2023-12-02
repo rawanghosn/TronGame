@@ -55,7 +55,7 @@ MygTronMov >> defaultBackground [
 MygTronMov >> move: aCpDirection [
 
 	| newPosition neighbor |
-	newPosition := aCpDirection * self position.
+	newPosition := aCpDirection + self position.
 	neighbor := self board atPosition: newPosition.
 	^ self moveIn: neighbor going: aCpDirection
 ]

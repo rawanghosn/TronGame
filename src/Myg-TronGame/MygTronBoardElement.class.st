@@ -17,6 +17,41 @@ MygTronBoardElement class >> openWithModel: aTronBoard [
 	self new openWithModel: aTronBoard.
 ]
 
+{ #category : #adding }
+MygTronBoardElement >> addPlayerKeyboardReactions: container player: player [
+    "Add keyboard reactions for the player"
+    | dxy speed keyDownBlockByKey keyUpBlockByKey |
+    dxy := 0@0.
+    speed := 2.
+
+    keyDownBlockByKey := {
+        KeyboardKey up -> [ dxy := dxy x @ speed negated ].
+        KeyboardKey down -> [ dxy := dxy x @ speed ].
+        KeyboardKey left -> [ dxy := speed negated @ dxy y ].
+        KeyboardKey right -> [ dxy := speed @ dxy y ].
+    } asOrderedDictionary.
+
+    keyUpBlockByKey := {
+        KeyboardKey up -> [ dxy := dxy x @ 0 ].
+        KeyboardKey down -> [ dxy := dxy x @ 0 ].
+        KeyboardKey left -> [ dxy := 0 @ dxy y ].
+        KeyboardKey right -> [ dxy := 0 @ dxy y ].
+    } asOrderedDictionary.
+   
+    self space
+    when: BlKeyDownEvent do: [ :evt |
+        keyDownBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ];
+    when: BlKeyUpEvent do: [ :evt |
+        keyUpBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ].
+
+    container enqueueTask:
+        (BlRepeatedTaskAction new
+            delay: 0 milliSeconds;
+            action: [ dxy isZero ifFalse: [ self moveplayer: player direction: dxy ]];
+            yourself).
+
+]
+
 { #category : #accessing }
 MygTronBoardElement >> backgroundLayer [
 
@@ -76,7 +111,7 @@ MygTronBoardElement >> elementsToUpdateAtPosition: aPoint goingIn: aCpDirection 
 	layer := self foregroundLayer.
 	playerElement := (layer childNamed: aPoint asString) firstChild.
 	neighborElement := (layer childNamed:
-		                    (aCpDirection * aPoint) asString) firstChild.
+		                    (aCpDirection + aPoint) asString) firstChild.
 	elements := {
 		            playerElement.
 		            neighborElement } asOrderedCollection.
@@ -168,55 +203,79 @@ MygTronBoardElement >> initializeDirectionDict [
 
 { #category : #initialization }
 MygTronBoardElement >> initializeForegroundLayer [
+    | layer |
+    layer := BlElement new
+             background: Color transparent;
+             layout: (BlGridLayout horizontal
+                      columnCount: board width;
+                      cellSpacing: 2);
+             constraintsDo: [ :c |
+                 c horizontal matchParent.
+                 c vertical fitContent ].
+    self addChild: layer.
+    self board do: [ :aBox |
+        | boxElement tmpBox container |
+        
+        tmpBox := aBox.
+        (aBox class inheritsFrom: MygTronMov) ifTrue: [
+            "If the box is an instance of MygTronMov (player)"
+            boxElement := (MygTronBoxElement box: tmpBox)
+                              positionInField: aBox position;
+                              board: board.
+            container := BlElement new
+                             layout: BlSquaredLayout new;
+                             constraintsDo: [ :c |
+                                 c frame vertical alignCenter.
+                                 c horizontal matchParent.
+                                 c vertical fitContent ];
+                             addChild: boxElement;
+            border: (BlBorder paint: Color white);
+            clipChildren: false.
+            
+            layer addChild: container as: aBox position asString.
+            boxElement updateBackgroundColor.
+            
+            "Add keyboard reactions for the player"
+            self addPlayerKeyboardReactions: container player: tmpBox.
+        ] ifFalse: [
+            "For other elements, create a ground element"
+            tmpBox := MygTronGround new.
+            boxElement := (MygTronBoxElement box: tmpBox)
+                              positionInField: aBox position;
+                              board: board.
+            container := BlElement new
+                             layout: BlSquaredLayout new;
+                             constraintsDo: [ :c |
+                                 c frame vertical alignCenter.
+                                 c horizontal matchParent.
+                                 c vertical fitContent ];
+                             addChild: boxElement;
+            border: (BlBorder paint: Color white);
+            clipChildren: false.
+            
+            layer addChild: container as: aBox position asString.
+            boxElement updateBackgroundColor.
+        ].
+    ].
 
-	| layer |
-	layer := BlElement new
-		         background: Color transparent;
-		         layout: (BlGridLayout horizontal
-				          columnCount: board width;
-				          cellSpacing: 2);
-		         constraintsDo: [ :c |
-			         c horizontal matchParent.
-			         c vertical fitContent ].
-	self addChild: layer.
-	self board do: [ :aBox |
-		| boxElement tmpBox container|
-		
-    	tmpBox := aBox.
-		(aBox class inheritsFrom: MygTronMov ) ifFalse: [
-			tmpBox := MygTronGround new ].
-		boxElement := (MygTronBoxElement box: tmpBox)
-			              positionInField: aBox position;
-			              board: board.
-		container := BlElement new
-			             layout: BlSquaredLayout new;
-			             constraintsDo: [ :c |
-				             c frame vertical alignCenter.
-				             c horizontal matchParent.
-				             c vertical fitContent ];
-			             addChild: boxElement;
-			border: (BlBorder paint: Color white);
-	      clipChildren: false.
-      
-		layer addChild: container as: aBox position asString.
-		boxElement updateBackgroundColor ].
+    self foregroundLayer: layer.
 
-	self foregroundLayer: layer
+
 ]
 
 { #category : #initialization }
 MygTronBoardElement >> manageEvents: anEvent [
 
 	anEvent key name = #SPACE ifTrue: [
-		self resetBoard.
-		^ self ].
+		^ self resetBoard.
+		 ].
 	anEvent key name = #ESCAPE ifTrue: [
-		self space close.
-		^ self ].
+		^ self space close.
+	 ].
 	"board isFinished ifTrue: [ ^ self ]."
-	(directionDict1 includesKey: anEvent key name ) ifTrue: [ 
+	"(directionDict1 includesKey: anEvent key name ) ifTrue: [ 
 	self moveplayer: self board player1 direction: anEvent.] 
-   ifFalse: [self moveplayer: self board player2 direction: anEvent. ].
+   ifFalse: [self moveplayer: self board player2 direction: anEvent. ]."
 
 	"direction := self directionDict
 		             at: anEvent key name
@@ -255,12 +314,7 @@ MygTronBoardElement >> movePlayer: aPlayer direction: anEvent [
 { #category : #'as yet unclassified' }
 MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
 |direction1 elements moved neighborElement|
-1 timesRepeat: [
-  direction1 := self directionDict1
-		             at: anEvent key name
-		             ifAbsent: [ self directionDict2
-		             at: anEvent key name
-		             ifAbsent: [ ^ self ] ].
+  direction1 := anEvent.
   "direction2 := self directionDict2
 		             at: anEvent key name
 		             ifAbsent: [ ^ self ]."
@@ -271,8 +325,6 @@ MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
 	neighborElement := elements second.
 
   moved ifTrue: [self updateElement: elements ].
-  (Delay forSeconds: 0.1) wait. "Wait for one second before the next iteration"
-].
 
 ]
 
