@@ -234,25 +234,6 @@ MygTronBoardElement >> manageEvents: anEvent [
 ]
 
 { #category : #'as yet unclassified' }
-MygTronBoardElement >> movePlayer: aPlayer direction: anEvent [
-    | direction elements moved neighborElement |
-    
-   self space root 
-	   when: anEvent  do: [ direction := self directionDict
-                         at: anEvent key name
-                         ifAbsent: [ ^ self ].
-        elements := self
-                        elementsToUpdateAtPosition: aPlayer position
-                        goingIn: direction.
-        moved := aPlayer move: direction.
-        neighborElement := elements second.
-
-        moved ifTrue: [ self updateElement: elements ].
-        (Delay forSeconds: 0.1) wait. "Wait for 0.1 seconds before the next iteration" ].
-       
-]
-
-{ #category : #'as yet unclassified' }
 MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
 |direction1 elements moved neighborElement|
 1 timesRepeat: [
