@@ -63,3 +63,20 @@ MygTronElement >> printOn: aStream [
 MygTronElement >> restafterbump [
 	^ self restafterbump 
 ]
+
+{ #category : #accessing }
+MygTronElement >> title [
+| title |
+title := BlElement new background: Color blue .
+	title constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+	title layout: BlFrameLayout new.
+	title addChild: ((BlTextElement new text: ('Game ended. Press Q to quit or S to restart.' asRopedText
+				   fontName: 'Phosphate';
+				   foreground: Color white;
+				   fontSize: 25)) constraintsDo: [ :c |
+			 c frame horizontal alignCenter.
+			 c frame vertical alignCenter ]).
+	^ title
+]

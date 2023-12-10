@@ -38,6 +38,32 @@ MygTronMov >> board: aBoard [
 	self background board: aBoard
 ]
 
+{ #category : #move }
+MygTronMov >> bringIn: anActor going: aDirection [
+	"GameOver"
+	| space title keyDownBlockByKey|
+	space := BlSpace new.
+	space pulse
+		extent:500 @ 500;
+		resizable: false.
+	title := self title.
+	space root addChild: title.
+
+	space root background: Color blue.
+	space root layout: BlFrameLayout new.
+	space show.	
+		
+  keyDownBlockByKey := {
+  KeyboardKey S -> [ space close. self restafterbump ].
+  KeyboardKey Q -> [ space close. self board gameManager currentBoardElement space close]. "quit"} asOrderedDictionary.
+  
+ space root
+    when: BlKeyDownEvent do: [ :evt |
+        keyDownBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ].
+ self board endGame.
+	^ true .
+]
+
 { #category : #initialization }
 MygTronMov >> configured [
 
@@ -88,4 +114,10 @@ MygTronMov >> position: aPoint [
 
 	position := aPoint.
 	self background position: aPoint
+]
+
+{ #category : #'as yet unclassified' }
+MygTronMov >> restafterbump [
+	self board gameManager currentBoardElement resetBoard.
+	^ self board gameManager currentBoardElement
 ]

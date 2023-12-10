@@ -38,7 +38,7 @@ MygTronWall >> bringIn: anActor going: aDirection [
     when: BlKeyDownEvent do: [ :evt |
         keyDownBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ].
  self board endGame.
-	^ true .
+	^ false .
 ]
 
 { #category : #'as yet unclassified' }
