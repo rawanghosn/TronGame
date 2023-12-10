@@ -119,9 +119,15 @@ MygTronBoard >> initialize [
 ]
 
 { #category : #move }
-MygTronBoard >> moveSteps: aCollectionOfDirection [
+MygTronBoard >> moveStepsPlayer1: aCollectionOfDirection [
 
 	aCollectionOfDirection do: [ :each | player1 move: each ]
+]
+
+{ #category : #move }
+MygTronBoard >> moveStepsPlayer2: aCollectionOfDirection [
+
+	aCollectionOfDirection do: [ :each | player2 move: each ]
 ]
 
 { #category : #accessing }

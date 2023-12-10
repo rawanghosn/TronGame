@@ -22,9 +22,20 @@ MygTronGameLogic >> setUp [
 MygTronGameLogic >> testMoveStepsPlayer1 [
 
 	self assert: board ended equals: false.
-	board moveSteps: {
+	board moveStepsPlayer1:  {
 			CpDirection east.
 			CpDirection east.
 			CpDirection east.}.
-	self assert: board printString equals: '#----@+#'
+	self assert: board printString equals: '#---@|+#'
+]
+
+{ #category : #tests }
+MygTronGameLogic >> testMoveStepsPlayer2 [
+
+	self assert: board ended equals: false.
+	board moveStepsPlayer2: {
+			CpDirection west.
+			CpDirection west.
+			CpDirection west.}.
+	self assert: board printString equals: '#@|+---#'
 ]
