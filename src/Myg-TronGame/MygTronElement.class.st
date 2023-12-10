@@ -61,6 +61,5 @@ MygTronElement >> printOn: aStream [
 
 { #category : #'as yet unclassified' }
 MygTronElement >> restafterbump [
-	self board gameManager currentBoardElement resetBoard.
-	^ self board gameManager currentBoardElement
+	^ self restafterbump 
 ]

@@ -165,12 +165,18 @@ MygTronBoard >> updatePositionOf: aTronMovable from: previousPosition [
 
 	aTronMovable class = MygTronPlayer
 		ifTrue: [
-			self
+			|trail1|
+			trail1 := MygTronTrail1 new.
+			trail1 player: player1.
+		self
 				atColumn: previousPosition x
 				atRow: previousPosition y
-				put: MygTronTrail1 new background ]
+				put: trail1.]
 		ifFalse: [
 			aTronMovable class = MygTronPlayer2 ifTrue: [
+			  |trail2|
+			  trail2 := MygTronTrail2 new.
+			  trail2 player: player2.
 				self
 					atColumn: previousPosition x
 					atRow: previousPosition y

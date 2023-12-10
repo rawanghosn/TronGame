@@ -41,6 +41,12 @@ MygTronWall >> bringIn: anActor going: aDirection [
 	^ true .
 ]
 
+{ #category : #'as yet unclassified' }
+MygTronWall >> restafterbump [
+	self board gameManager currentBoardElement resetBoard.
+	^ self board gameManager currentBoardElement
+]
+
 { #category : #accessing }
 MygTronWall >> title [
 | title |

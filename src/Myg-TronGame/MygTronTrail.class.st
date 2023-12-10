@@ -1,6 +1,9 @@
 Class {
 	#name : #MygTronTrail,
 	#superclass : #MygTronElement,
+	#instVars : [
+		'player'
+	],
 	#category : #'Myg-TronGame-Model'
 }
 
@@ -39,12 +42,33 @@ MygTronTrail >> bringIn: anActor going: aDirection [
 		
   keyDownBlockByKey := {
   KeyboardKey S -> [ space close. self restafterbump ].
-  KeyboardKey Q -> [ space close. self board gameManager currentBoardElement space close]. "quit"} asOrderedDictionary.
+  KeyboardKey Q -> [ space close. self quitgame.]. "quit"} asOrderedDictionary.
   
  space root
     when: BlKeyDownEvent do: [ :evt |
         keyDownBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ].
 ^ false
+]
+
+{ #category : #accessing }
+MygTronTrail >> player [
+^ player
+]
+
+{ #category : #accessing }
+MygTronTrail >> player: aPlayer [
+ player:= aPlayer 
+]
+
+{ #category : #'as yet unclassified' }
+MygTronTrail >> quitgame [
+^ self player board gameManager currentBoardElement space close
+]
+
+{ #category : #'as yet unclassified' }
+MygTronTrail >> restafterbump [
+	self player board gameManager currentBoardElement resetBoard.
+	^ self player board gameManager currentBoardElement
 ]
 
 { #category : #accessing }
