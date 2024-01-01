@@ -5,14 +5,17 @@ Class {
 }
 
 { #category : #tests }
-MygTronStructuralBoardTest >> testPlayerAvailable [ 
- | board |
-	board := MygTronBoard createWithBoard:
-		         ((MygLevelImporter
-			          fromString: '# @    #'
-			          fromPackage: MygTronBoard package) collect: [ :each | each configured ]).
-	self assert: board player position x equals: 3.
-	self assert: board player position y equals: 1
+MygTronStructuralBoardTest >> testPlayersAvailable [
+
+    | board |
+    board := MygTronBoard createWithBoard:
+                 ((MygLevelImporter
+                      fromString: '#+|@||||#'
+                      fromPackage: MygTronBoard package) collect: [ :each | each configured ]).
+    self assert: board player1 position x equals: 4.
+    self assert: board player1 position y equals: 1.
+    self assert: board player2 position x equals: 2.
+    self assert: board player2 position y equals: 1
 ]
 
 { #category : #tests }
@@ -21,20 +24,20 @@ MygTronStructuralBoardTest >> testPrintOnOneLine [
 	| board |
 	board := MygTronBoard createWithBoard:
 		         ((MygLevelImporter
-			          fromString: '#@  #'
+			          fromString: '#@  +#'
 			          fromPackage: MygTronBoard package) collect: [ :each | each configured ]).
 	self assert: board height equals: 1.
-	self assert: board width equals: '#@  #' size.
-	self assert: board asciiString equals: '#@  #'
+	self assert: board width equals: '#@  +#' size.
+	self assert: board asciiString equals: '#@  +#'
 ]
 
 { #category : #tests }
-MygTronStructuralBoardTest >> testTrailOnChangeDirection [
+MygTronStructuralBoardTest >> testTrail1OnChangeDirection [
 
 	| string manager boardElement space |
 	string := 
 '######
- #||||#
+ #+|||#
  #||||#
  #||@|#
  #####'.
@@ -44,51 +47,43 @@ MygTronStructuralBoardTest >> testTrailOnChangeDirection [
 
 	self assert: boardElement board printString equals: 	
 '###### 
- #||||#
+ #+|||#
  #||||#
  #||@|#
  ##### '.
 	self assert: manager currentMoveCount equals: 0.
-	boardElement board player moveNorth.
+	boardElement board player1 moveNorth.
 	self assert: boardElement board printString equals: 
 '###### 
- #||||#
+ #+|||#
  #||@|#
  #||-|#
  ##### '.
 	self assert: manager currentMoveCount equals: 1.
-	boardElement board player moveNorth.
+	boardElement board player1 moveNorth.
 	self assert: boardElement board printString equals: 
 '###### 
- #||@|#
+ #+|@|#
  #||-|#
  #||-|#
  ##### '.
 	self assert: manager currentMoveCount equals: 2.
-   	boardElement board player moveWest.
+   	boardElement board player1 moveWest.
 	self assert: boardElement board printString equals: 
 '###### 
- #|@-|#
+ #+@-|#
  #||-|#
  #||-|#
  ##### '.
 	self assert: manager currentMoveCount equals: 3.
-	boardElement board player moveWest.
+	boardElement board player1 moveSouth.
 	self assert: boardElement board printString equals: 
 '###### 
- #@--|#
- #||-|#
+ #+--|#
+ #|@-|#
  #||-|#
  ##### '.
 	self assert: manager currentMoveCount equals: 4.
-	boardElement board player moveSouth.
-	self assert: boardElement board printString equals: 
-'###### 
- #---|#
- #@|-|#
- #||-|#
- ##### '.
-	self assert: manager currentMoveCount equals: 5.
 	space := manager currentBoardElement space.
 	space universe closeSpaceSynchronously: space
 ]
