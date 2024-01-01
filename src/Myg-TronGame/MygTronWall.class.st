@@ -33,7 +33,8 @@ MygTronWall >> bringIn: anActor going: aDirection [
   keyDownBlockByKey := {
   KeyboardKey S -> [ space close. self restafterbump ].
   KeyboardKey Q -> [ space close. self board gameManager currentBoardElement space close]. "quit"} asOrderedDictionary.
-  
+ 
+ self board gameManager currentBoardElement space close.
  space root
     when: BlKeyDownEvent do: [ :evt |
         keyDownBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ].

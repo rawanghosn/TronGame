@@ -6,7 +6,8 @@ Class {
 		'backgroundLayer',
 		'foregroundLayer',
 		'directionDict1',
-		'directionDict2'
+		'directionDict2',
+		'keyDownBlockByKey'
 	],
 	#category : #'Myg-TronGame-UI'
 }
@@ -159,11 +160,12 @@ MygTronBoardElement >> initializeDirectionDict [
 		        (#LEFT -> CpDirection west).
 		        (#RIGHT -> CpDirection east) } asDictionary.
 		
-		directionDict2 := {
+	directionDict2 := {
 		        (#S -> CpDirection south).
 		        (#Z -> CpDirection north).
 		        (#Q -> CpDirection west).
 		        (#D -> CpDirection east) } asDictionary.
+	
 ]
 
 { #category : #initialization }
@@ -197,7 +199,10 @@ MygTronBoardElement >> initializeForegroundLayer [
 			             addChild: boxElement;
 			border: (BlBorder paint: Color white);
 	      clipChildren: false.
-      
+	
+	(aBox class = MygTronPlayer ) ifTrue: [ self board player1box: container.] .
+	(aBox class = MygTronPlayer2 ) ifTrue: [  self board player2box: container.].
+    
 		layer addChild: container as: aBox position asString.
 		boxElement updateBackgroundColor ].
 
@@ -214,10 +219,16 @@ MygTronBoardElement >> manageEvents: anEvent [
 		self space close.
 		^ self ].
 	"board isFinished ifTrue: [ ^ self ]."
-	(directionDict1 includesKey: anEvent key name ) ifTrue: [ 
+	"(directionDict1 includesKey: anEvent key name ) ifTrue: [ 
 	self moveplayer: self board player1 direction: anEvent.] 
-   ifFalse: [self moveplayer: self board player2 direction: anEvent. ].
-
+   ifFalse: [self moveplayer: self board player2 direction: anEvent. ]."
+ "self keyDownBlockByKey at: anEvent key ifPresent: [ :aBlock | aBlock value ]."
+  (directionDict1 includesKey: anEvent key name ) ifTrue: [ 
+   self board player1box enqueueTask:
+	(BlRepeatedTaskAction new
+		delay: 0 milliSeconds;
+		action: [ self moveplayer: self board player1 direction: anEvent. ];
+		yourself).]
 	"direction := self directionDict
 		             at: anEvent key name
 		             ifAbsent: [ ^ self ].

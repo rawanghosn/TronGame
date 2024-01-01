@@ -3,7 +3,9 @@ Class {
 	#superclass : #MygBoard,
 	#instVars : [
 		'player1',
+		'player1box',
 		'player2',
+		'player2box',
 		'ended',
 		'gamemanager'
 	],
@@ -136,8 +138,28 @@ MygTronBoard >> player1 [
 ]
 
 { #category : #accessing }
+MygTronBoard >> player1box [
+^player1box
+]
+
+{ #category : #accessing }
+MygTronBoard >> player1box: playerBl [
+ player1box := playerBl 
+]
+
+{ #category : #accessing }
 MygTronBoard >> player2 [
 ^player2
+]
+
+{ #category : #accessing }
+MygTronBoard >> player2box [
+^player2box
+]
+
+{ #category : #accessing }
+MygTronBoard >> player2box: playerBl [
+ player2box := playerBl 
 ]
 
 { #category : #printing }
