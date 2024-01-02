@@ -6,8 +6,7 @@ Class {
 		'backgroundLayer',
 		'foregroundLayer',
 		'directionDict1',
-		'directionDict2',
-		'keyDownBlockByKey'
+		'directionDict2'
 	],
 	#category : #'Myg-TronGame-UI'
 }
@@ -200,8 +199,8 @@ MygTronBoardElement >> initializeForegroundLayer [
 			border: (BlBorder paint: Color white);
 	      clipChildren: false.
 	
-	(aBox class = MygTronPlayer ) ifTrue: [ self board player1box: container.] .
-	(aBox class = MygTronPlayer2 ) ifTrue: [  self board player2box: container.].
+	(aBox class = MygTronPlayer ) ifTrue: [ self board player1box: container] .
+	(aBox class = MygTronPlayer2 ) ifTrue: [  self board player2box: container].
     
 		layer addChild: container as: aBox position asString.
 		boxElement updateBackgroundColor ].
@@ -226,7 +225,7 @@ MygTronBoardElement >> manageEvents: anEvent [
   (directionDict1 includesKey: anEvent key name ) ifTrue: [ 
    self board player1box enqueueTask:
 	(BlRepeatedTaskAction new
-		delay: 0 milliSeconds;
+		delay: 1000 milliSeconds;
 		action: [ self moveplayer: self board player1 direction: anEvent. ];
 		yourself).]
 	"direction := self directionDict
