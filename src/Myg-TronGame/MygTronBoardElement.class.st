@@ -6,7 +6,8 @@ Class {
 		'backgroundLayer',
 		'foregroundLayer',
 		'directionDict1',
-		'directionDict2'
+		'directionDict2',
+		'repetitiveTask'
 	],
 	#category : #'Myg-TronGame-UI'
 }
@@ -111,6 +112,8 @@ MygTronBoardElement >> initialize [
 		layout: BlFrameLayout new;
 		addEventHandlerOn: BlKeyDownEvent
 		do: [ :anEvent | self manageEvents: anEvent ];
+		addEventHandlerOn: BlKeyUpEvent
+		do: [ :anEvent | self manageUpEvents: anEvent ];
 		requestFocus.
 	
 ]
@@ -141,8 +144,9 @@ MygTronBoardElement >> initializeBackgroundLayer [
 			             constraintsDo: [ :c |
 				             c frame vertical alignCenter.
 				             c horizontal matchParent.
-				             c vertical fitContent ];
+				             c vertical matchParent  ];
 			             addChild: boxElement;
+			border: (BlBorder paint: Color white);
 			clipChildren: false.
 		layer addChild: container.
 		boxElement updateBackgroundColor ].
@@ -194,7 +198,7 @@ MygTronBoardElement >> initializeForegroundLayer [
 			             constraintsDo: [ :c |
 				             c frame vertical alignCenter.
 				             c horizontal matchParent.
-				             c vertical fitContent ];
+				             c vertical fitContent  ];
 			             addChild: boxElement;
 			border: (BlBorder paint: Color white);
 	      clipChildren: false.
@@ -210,51 +214,50 @@ MygTronBoardElement >> initializeForegroundLayer [
 
 { #category : #initialization }
 MygTronBoardElement >> manageEvents: anEvent [
-
+   |task1 task2|
 	anEvent key name = #SPACE ifTrue: [
 		self resetBoard.
 		^ self ].
 	anEvent key name = #ESCAPE ifTrue: [
 		self space close.
 		^ self ].
-	"board isFinished ifTrue: [ ^ self ]."
-	"(directionDict1 includesKey: anEvent key name ) ifTrue: [ 
-	self moveplayer: self board player1 direction: anEvent.] 
-   ifFalse: [self moveplayer: self board player2 direction: anEvent. ]."
- "self keyDownBlockByKey at: anEvent key ifPresent: [ :aBlock | aBlock value ]."
-  (directionDict1 includesKey: anEvent key name ) ifTrue: [ 
-   self board player1box enqueueTask:
-	(BlRepeatedTaskAction new
-		delay: 1000 milliSeconds;
+  task1 := (BlRepeatedTaskAction new
+		delay: 70 milliSeconds;
 		action: [ self moveplayer: self board player1 direction: anEvent. ];
-		yourself).]
-	"direction := self directionDict
-		             at: anEvent key name
-		             ifAbsent: [ ^ self ].
-	elements := self
-		            elementsToUpdateAtPosition: player position
-		            goingIn: direction.
-	moved := player move: direction.
+		yourself).
+  task2 := (BlRepeatedTaskAction new
+		delay: 70 milliSeconds;
+		action: [ self moveplayer: self board player2 direction: anEvent. ];
+		yourself).
+		
+  (directionDict1 includesKey: anEvent key name ) ifTrue: [ 
+   self board player1box enqueueTask: task1.
+   ].
 
-	neighborElement := elements second.
+  (directionDict2 includesKey: anEvent key name ) ifTrue: [ 
+   self board player2box enqueueTask: task2.
+   ].
 
-  moved ifTrue: [self updateElement: elements ]"
+   (directionDict1 includesKey: anEvent key name ) ifTrue: [  self repetitiveTask: task1. ] ifFalse: [  self repetitiveTask: task2. ] 
+  
 
+]
 
+{ #category : #initialization }
+MygTronBoardElement >> manageUpEvents: anEvent [
+  ((directionDict1 includesKey: anEvent key name ) | (directionDict2 includesKey: anEvent key name )) ifTrue: [ 
+   self repetitiveTask stop. ].
 ]
 
 { #category : #'as yet unclassified' }
 MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
 |direction1 elements moved neighborElement|
-1 timesRepeat: [
   direction1 := self directionDict1
 		             at: anEvent key name
 		             ifAbsent: [ self directionDict2
 		             at: anEvent key name
 		             ifAbsent: [ ^ self ] ].
-  "direction2 := self directionDict2
-		             at: anEvent key name
-		             ifAbsent: [ ^ self ]."
+
 	elements := self
 		            elementsToUpdateAtPosition: aPlayer position
 		            goingIn: direction1.
@@ -262,8 +265,6 @@ MygTronBoardElement >> moveplayer: aPlayer direction: anEvent [
 	neighborElement := elements second.
 
   moved ifTrue: [self updateElement: elements ].
-  (Delay forSeconds: 0.1) wait. "Wait for one second before the next iteration"
-].
 
 ]
 
@@ -284,11 +285,28 @@ MygTronBoardElement >> openWithModel: aTronBoard [
 	space show
 ]
 
+{ #category : #accessing }
+MygTronBoardElement >> repetitiveTask [
+	^ repetitiveTask 
+]
+
+{ #category : #accessing }
+MygTronBoardElement >> repetitiveTask: task [
+	repetitiveTask := task
+]
+
 { #category : #initialization }
 MygTronBoardElement >> resetBoard [
 
 	self space close.
 	self board reset
+]
+
+{ #category : #initialization }
+MygTronBoardElement >> resetBoard: space board: elboard [
+
+	space close.
+	elboard reset
 ]
 
 { #category : #'as yet unclassified' }

@@ -30,22 +30,29 @@ MygTronBoard class >> createWithBoard:  aCTNewArray2D managedBy: aTronGameManage
 { #category : #'as yet unclassified' }
 MygTronBoard class >> level1Grid [
 ^
-'#############
-#||||||||||@#
-#| | | | | |#
-#|||||||||||#
-#| | | | | |#
-#|||||||||||#
-#| | | | | |#
-#|||||||||||#
-#| | | | | |#
-#+||||||||||#
-#############'.
-"	tmp := MygLevelImporter fromString: level fromPackage: self package.
-	tmp := tmp collect: [ :each | each configured ].
-	tmp width < tmp height ifTrue: [ tmp := tmp rotateLeft ].
-
-	^ self configureGrid: tmp"
+'#########################
+#||||||||||||||||||||||@#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#+ | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#########################'.
 	
 ]
 
@@ -209,7 +216,7 @@ MygTronBoard >> updatePositionOf: aTronMovable from: previousPosition [
 				self
 					atColumn: previousPosition x
 					atRow: previousPosition y
-					put: MygTronTrail2 new background ] ].
+					put: trail2 ] ].
 	"put the current position element as previous background of the moving element."
 	aTronMovable background:
 		(self

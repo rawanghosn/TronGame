@@ -161,7 +161,11 @@ MygTronBoxElement >> initialize [
 	self
 		background: self backgroundPaint;
 		geometry: BlSquareGeometry new;
-		layout: BlSquaredLayout new
+		layout: BlSquaredLayout new; 
+		constraintsDo: [ :c |
+				             c frame vertical alignCenter.
+				             c horizontal matchParent.
+				             c vertical matchParent.].
 ]
 
 { #category : #accessing }
