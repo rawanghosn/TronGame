@@ -71,18 +71,19 @@ MygTronMoveSituationTest >> testPlayer1BumpingInItsOwnTrail [
 { #category : #tests }
 MygTronMoveSituationTest >> testPlayer1BumpingInWall [
 
-	| board position player |
-	board := MygTronBoard createWithBoard:
-		         ((MygLevelImporter
-			           fromString: '#+||@#'
-			           fromPackage: MygTronBoard package) do: [ :each |
-			          each configured ]).
-	player := board atColumn: 4 atRow: 1 .
-	position := board player1 position.
-	self deny: (board player1 move: CpDirection east).
-	self assert: board player1 position equals: position.
+	| string manager boardElement player position |
+	string := '#+||@#'.
+	manager := MygTronGameManager new.
+	manager launchFromString: string.
+	boardElement := manager currentBoardElement.
+	
+	player := boardElement board atColumn: 4 atRow: 1 .
+	position := boardElement board player1 position.
+	self deny: (boardElement board player1 move: CpDirection east).
+	self assert: boardElement board player1 position equals: position.
 	self assert: player position x equals: 4.
-	self assert: board asciiString equals: '#+||@#'
+	
+	self assert: boardElement board asciiString equals: '#+||@#'
 ]
 
 { #category : #tests }
@@ -190,18 +191,18 @@ MygTronMoveSituationTest >> testPlayer2BumpingInItsOwnTrail [
 { #category : #tests }
 MygTronMoveSituationTest >> testPlayer2BumpingInWall [
 
-	| board position player |
-	board := MygTronBoard createWithBoard:
-		         ((MygLevelImporter
-			           fromString: '#+||@#'
-			           fromPackage: MygTronBoard package) do: [ :each |
-			          each configured ]).
-	player := board atColumn: 2 atRow: 1 .
-	position := board player2 position.
-	self deny: (board player2 move: CpDirection west).
-	self assert: board player2 position equals: position.
+		| string manager boardElement player position |
+	string := '#+||@#'.
+	manager := MygTronGameManager new.
+	manager launchFromString: string.
+	boardElement := manager currentBoardElement.
+	
+	player := boardElement board atColumn: 2 atRow: 1 .
+	position := boardElement board player2 position.
+	self deny: (boardElement board player2 move: CpDirection west).
+	self assert: boardElement board player2 position equals: position.
 	self assert: player position x equals: 2.
-	self assert: board asciiString equals: '#+||@#'
+	self assert: boardElement board asciiString equals: '#+||@#'
 ]
 
 { #category : #tests }

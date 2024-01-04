@@ -60,8 +60,9 @@ MygTronElement >> printOn: aStream [
 ]
 
 { #category : #'as yet unclassified' }
-MygTronElement >> restafterbump [
-	^ self restafterbump 
+MygTronElement >> restafterbump: boardEl space: boardElspace board: boardElboard [
+	boardEl resetBoard: boardElspace board: boardElboard .
+	^ boardEl 
 ]
 
 { #category : #accessing }

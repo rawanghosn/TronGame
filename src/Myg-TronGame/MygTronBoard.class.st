@@ -3,7 +3,9 @@ Class {
 	#superclass : #MygBoard,
 	#instVars : [
 		'player1',
+		'player1box',
 		'player2',
+		'player2box',
 		'ended',
 		'gamemanager'
 	],
@@ -28,21 +30,29 @@ MygTronBoard class >> createWithBoard:  aCTNewArray2D managedBy: aTronGameManage
 { #category : #'as yet unclassified' }
 MygTronBoard class >> level1Grid [
 ^
-'###########
-#||||||||@#
-#| | | | |#
-#|||||||||#
-#| | | | |#
-#|||||||||#
-#+ | | | |#
-#|||||||||#
-#|||||||||#
-###########'.
-"	tmp := MygLevelImporter fromString: level fromPackage: self package.
-	tmp := tmp collect: [ :each | each configured ].
-	tmp width < tmp height ifTrue: [ tmp := tmp rotateLeft ].
-
-	^ self configureGrid: tmp"
+'#########################
+#||||||||||||||||||||||@#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#+ | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#| | | | | | | | | | | |#
+#|||||||||||||||||||||||#
+#########################'.
 	
 ]
 
@@ -136,8 +146,28 @@ MygTronBoard >> player1 [
 ]
 
 { #category : #accessing }
+MygTronBoard >> player1box [
+^player1box
+]
+
+{ #category : #accessing }
+MygTronBoard >> player1box: playerBl [
+ player1box := playerBl 
+]
+
+{ #category : #accessing }
 MygTronBoard >> player2 [
 ^player2
+]
+
+{ #category : #accessing }
+MygTronBoard >> player2box [
+^player2box
+]
+
+{ #category : #accessing }
+MygTronBoard >> player2box: playerBl [
+ player2box := playerBl 
 ]
 
 { #category : #printing }
@@ -186,7 +216,7 @@ MygTronBoard >> updatePositionOf: aTronMovable from: previousPosition [
 				self
 					atColumn: previousPosition x
 					atRow: previousPosition y
-					put: MygTronTrail2 new background ] ].
+					put: trail2 ] ].
 	"put the current position element as previous background of the moving element."
 	aTronMovable background:
 		(self

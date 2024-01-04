@@ -28,7 +28,7 @@ MygTronTrail >> backgroundRepresentation [
 { #category : #move }
 MygTronTrail >> bringIn: anActor going: aDirection [
 	"anActor does not move in a trail. Nothing enter a trail."
-| space title keyDownBlockByKey|
+| space title keyDownBlockByKey boardEl boardElboard boardElspace|
 	space := BlSpace new.
 	space pulse
 		extent:500 @ 500;
@@ -39,11 +39,16 @@ MygTronTrail >> bringIn: anActor going: aDirection [
 	space root background: Color blue.
 	space root layout: BlFrameLayout new.
 	space show.	
-		
-  keyDownBlockByKey := {
-  KeyboardKey S -> [ space close. self restafterbump ].
-  KeyboardKey Q -> [ space close. self quitgame.]. "quit"} asOrderedDictionary.
   
+  boardEl := self player board gameManager currentBoardElement.
+  boardElspace := boardEl space.
+  boardElboard := boardEl board.
+
+  keyDownBlockByKey := {
+  KeyboardKey S -> [ space close. self restafterbump: boardEl space: boardElspace board: boardElboard  ].
+  KeyboardKey Q -> [ space close.]. "quit"} asOrderedDictionary.
+ 
+ boardElspace close.
  space root
     when: BlKeyDownEvent do: [ :evt |
         keyDownBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ].
@@ -58,17 +63,6 @@ MygTronTrail >> player [
 { #category : #accessing }
 MygTronTrail >> player: aPlayer [
  player:= aPlayer 
-]
-
-{ #category : #'as yet unclassified' }
-MygTronTrail >> quitgame [
-^ self player board gameManager currentBoardElement space close
-]
-
-{ #category : #'as yet unclassified' }
-MygTronTrail >> restafterbump [
-	self player board gameManager currentBoardElement resetBoard.
-	^ self player board gameManager currentBoardElement
 ]
 
 { #category : #accessing }

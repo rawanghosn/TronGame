@@ -18,7 +18,7 @@ MygTronWall >> backgroundRepresentation [
 { #category : #move }
 MygTronWall >> bringIn: anActor going: aDirection [
 	"anActor does not move in a wall. Nothing enter a wall. GameOver"
-	| space title keyDownBlockByKey|
+	| space title keyDownBlockByKey boardEl boardElspace boardElboard|
 	space := BlSpace new.
 	space pulse
 		extent:500 @ 500;
@@ -29,22 +29,20 @@ MygTronWall >> bringIn: anActor going: aDirection [
 	space root background: Color blue.
 	space root layout: BlFrameLayout new.
 	space show.	
-		
-  keyDownBlockByKey := {
-  KeyboardKey S -> [ space close. self restafterbump ].
-  KeyboardKey Q -> [ space close. self board gameManager currentBoardElement space close]. "quit"} asOrderedDictionary.
   
+  boardEl := self board gameManager currentBoardElement.	
+  boardElspace := boardEl space.	
+  boardElboard := boardEl board.
+  keyDownBlockByKey := {
+  KeyboardKey S -> [ space close. self restafterbump: boardEl space: boardElspace board: boardElboard ].
+  KeyboardKey Q -> [ space close.]. "quit"} asOrderedDictionary.
+ 
+ boardElspace close.
+ self board endGame.
  space root
     when: BlKeyDownEvent do: [ :evt |
         keyDownBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ].
- self board endGame.
 	^ false .
-]
-
-{ #category : #'as yet unclassified' }
-MygTronWall >> restafterbump [
-	self board gameManager currentBoardElement resetBoard.
-	^ self board gameManager currentBoardElement
 ]
 
 { #category : #accessing }
