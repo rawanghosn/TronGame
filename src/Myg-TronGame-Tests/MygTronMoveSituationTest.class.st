@@ -60,7 +60,7 @@ MygTronMoveSituationTest >> testPlayer1BumpingInItsOwnTrail [
 			          each configured ]).
 	player := board atColumn: 3 atRow: 2 .
 	position := board player1 position.
-	self deny: (board player1 move: CpDirection east).
+	self deny: (board player1 move: CpDirection west).
 	self assert: board player1 position equals: position.
 	self assert: player position x equals: 3.
 	self assert: board asciiString equals: '#----#
