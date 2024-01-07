@@ -38,17 +38,6 @@ MygTronBoardElement >> board [
 { #category : #accessing }
 MygTronBoardElement >> board: aTronBoard [
 
-"board := aTronBoard.
-self layout:
-(BlGridLayout horizontal cellSpacing: 5 - (board grid width // 5)).
-self constraintsDo: [ :aLayoutConstraints |
-aLayoutConstraints horizontal matchParent.
-aLayoutConstraints vertical matchParent ].
-self padding: (BlInsets all: 5).
-self layout columnCount: board grid width."
-
-"board: aSkBoard"
-
 board := aTronBoard.
 self constraintsDo: [ :c |
 c frame vertical alignCenter.
@@ -107,6 +96,8 @@ MygTronBoardElement >> initialize [
 
 	super initialize.
 	self initializeDirectionDict.
+	repetitiveTask := OrderedCollection new.
+   "[self moveplayer: self board player1 direction: CpDirection west.] fork."
 	self
 		background: (BlBackground paint: Color black );
 		layout: BlFrameLayout new;
@@ -174,7 +165,10 @@ MygTronBoardElement >> initializeDirectionDict [
 { #category : #initialization }
 MygTronBoardElement >> initializeForegroundLayer [
 
-	| layer |
+	| layer gameboard|
+	
+	gameboard := self board.
+	
 	layer := BlElement new
 		         background: Color transparent;
 		         layout: (BlGridLayout horizontal
@@ -184,6 +178,8 @@ MygTronBoardElement >> initializeForegroundLayer [
 			         c horizontal matchParent.
 			         c vertical fitContent ].
 	self addChild: layer.
+	
+	
 	self board do: [ :aBox |
 		| boxElement tmpBox container|
 		
@@ -203,8 +199,8 @@ MygTronBoardElement >> initializeForegroundLayer [
 			border: (BlBorder paint: Color white);
 	      clipChildren: false.
 	
-	(aBox class = MygTronPlayer ) ifTrue: [ self board player1box: container] .
-	(aBox class = MygTronPlayer2 ) ifTrue: [  self board player2box: container].
+	(aBox class = MygTronPlayer ) ifTrue: [ gameboard player1box: container] .
+	(aBox class = MygTronPlayer2 ) ifTrue: [  gameboard player2box: container].
     
 		layer addChild: container as: aBox position asString.
 		boxElement updateBackgroundColor ].
@@ -218,9 +214,11 @@ MygTronBoardElement >> manageEvents: anEvent [
 	anEvent key name = #SPACE ifTrue: [
 		self resetBoard.
 		^ self ].
+	
 	anEvent key name = #ESCAPE ifTrue: [
 		self space close.
 		^ self ].
+	
   task1 := (BlRepeatedTaskAction new
 		delay: 70 milliSeconds;
 		action: [ self moveplayer: self board player1 direction: anEvent. ];
@@ -238,15 +236,22 @@ MygTronBoardElement >> manageEvents: anEvent [
    self board player2box enqueueTask: task2.
    ].
 
-   (directionDict1 includesKey: anEvent key name ) ifTrue: [  self repetitiveTask: task1. ] ifFalse: [  self repetitiveTask: task2. ] 
+   (directionDict1 includesKey: anEvent key name ) 
+   ifTrue: [  
+	self repetitiveTask: task1. 
+	] 
+   ifFalse: [  
+	self repetitiveTask: task2. 
+	] 
   
 
 ]
 
 { #category : #initialization }
 MygTronBoardElement >> manageUpEvents: anEvent [
-  ((directionDict1 includesKey: anEvent key name ) | (directionDict2 includesKey: anEvent key name )) ifTrue: [ 
-   self repetitiveTask stop. ].
+  ((directionDict1 includesKey: anEvent key name ) | (directionDict2 includesKey: anEvent key name )) 	ifTrue: [ 
+   			    self repetitiveTask do: [ :task | task stop]. 
+		     ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -292,7 +297,7 @@ MygTronBoardElement >> repetitiveTask [
 
 { #category : #accessing }
 MygTronBoardElement >> repetitiveTask: task [
-	repetitiveTask := task
+	repetitiveTask add: task
 ]
 
 { #category : #initialization }
