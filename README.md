@@ -23,9 +23,9 @@ Metacello new
  ```
 
 ### Step 2: Cloning the Game Repository
-1- Open Pharo and navigate to the Git Repositories Browser.
-2- Add a new repository by clicking on 'Add' and selecting the 'Clone from GitHub' tab.
-3- Input the repository details as follows: 
+1.  Open Pharo and navigate to the Git Repositories Browser.
+2. Add a new repository by clicking on 'Add' and selecting the 'Clone from GitHub' tab.
+3. Input the repository details as follows: 
 - Owner name: rawanghosn
 - Project name: TronGame
 - Protocol: Choose either HTTPS or SSH
@@ -54,8 +54,8 @@ TronGame open.
   - D: Move east
 
 ### Game Interactions
-- Esc: Exit the game.
-- Space: Restart the game.
+- **Esc:** Exit the game.
+- **Space:** Restart the game.
 
 ### Game Instructions 
 - The objective is to navigate through the corridors without hitting the walls or entering the trail left behind by either player.
@@ -75,10 +75,10 @@ The code is structured into two main parts: Model and UI.
 ### Model Classes
 - **Hierarchy and Inheritance:**
  - The model includes a hierarchy of classes to represent the game elements.
- - For example, 'MygTronElement' which extends 'MygAbstractBox' serves as a base class, and various elements like corridors, walls, trails and the ground inherit from it.
+ - For example, 'MygTronElement' which extends 'MygAbstractBox' serves as a base class, and various elements like corridors, walls, trails, and the ground inherit from it.
 
 - **Game logic and GameManager:**
- - The game logic is encapsulated in classes like 'MygTronBoard' which extends 'MygBoard' and 'MygTronGameManager'.
+ - The game logic is encapsulated in classes like 'MygTronBoard' (which extends 'MygBoard') and 'MygTronGameManager'.
  - The GameManager orchestrates game events ensuring smooth gameplay
 ### UI Classes
 - **Element Representation:**
