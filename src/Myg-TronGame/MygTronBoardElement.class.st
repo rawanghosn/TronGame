@@ -70,12 +70,6 @@ MygTronBoardElement >> elementsToUpdateAtPosition: aPoint goingIn: aCpDirection 
 	elements := {
 		            playerElement.
 		            neighborElement } asOrderedCollection.
-	"(neighborElement board grid at: neighborElement positionInField)
-		class = MygTronWall ifFalse: [
-		nextNeighborElement := (layer childNamed:
-			                       (aCpDirection * (aCpDirection * aPoint))
-				                       asString) firstChild.
-		elements add: nextNeighborElement ]."
 	^ elements
 ]
 
@@ -97,7 +91,7 @@ MygTronBoardElement >> initialize [
 	super initialize.
 	self initializeDirectionDict.
 	repetitiveTask := OrderedCollection new.
-   "[self moveplayer: self board player1 direction: CpDirection west.] fork."
+
 	self
 		background: (BlBackground paint: Color black );
 		layout: BlFrameLayout new;

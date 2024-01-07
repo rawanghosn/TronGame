@@ -4,12 +4,6 @@ Class {
 	#category : #'Myg-TronGame-Model'
 }
 
-{ #category : #'default encoding' }
-MygTronTrail1 class >> textualMapCharacter [
-
-	^ $-
-]
-
 { #category : #accessing }
 MygTronTrail1 >> backgroundRepresentation [
 

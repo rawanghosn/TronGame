@@ -9,6 +9,11 @@ Class {
 	#category : #'Myg-TronGame-Model'
 }
 
+{ #category : #'default encoding' }
+MygTronMov class >> textualMapCharacter [ 
+^ self textualMapCharacter 
+]
+
 { #category : #'as yet unclassified' }
 MygTronMov >> addtrail [ 
 ^ self addtrail.

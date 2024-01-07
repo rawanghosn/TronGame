@@ -109,7 +109,6 @@ TronGame class >> menuLevel [
 	
 				string := MygTronBoard level1Grid.
 				manager launchFromString: string.
-        "MygTronBoardElement openWithModel: (MygTronBoard perform: selector asSymbol)"
     ]).
 
     ^ menu

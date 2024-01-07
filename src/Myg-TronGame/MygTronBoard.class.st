@@ -122,7 +122,7 @@ MygTronBoard >> height [
 ^ grid height
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 MygTronBoard >> initialize [ 
 	super initialize.
 	ended:=false.
@@ -197,7 +197,7 @@ MygTronBoard >> setPlayer [
 
 { #category : #move }
 MygTronBoard >> updatePositionOf: aTronMovable from: previousPosition [
-	"Put back the previous position element."
+	"Put trail behind the player."
 
 	aTronMovable class = MygTronPlayer
 		ifTrue: [
@@ -227,7 +227,7 @@ MygTronBoard >> updatePositionOf: aTronMovable from: previousPosition [
 		atColumn: aTronMovable position x
 		atRow: aTronMovable position y
 		put: aTronMovable
-	"self isFinished ifTrue: [ self endGame ]"
+
 ]
 
 { #category : #accessing }

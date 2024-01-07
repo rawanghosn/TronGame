@@ -16,14 +16,6 @@ MygTronPlayer >> addtrail [
 
 { #category : #accessing }
 MygTronPlayer >> backgroundRepresentation [
-
-	"| dict |
-	dict := {
-		        (CpNorthDirection -> MygTronBoxElement playerUpIcon).
-		        (CpWestDirection -> MygTronBoxElement playerLeftIcon).
-		        (CpSouthDirection -> MygTronBoxElement playerDownIcon).
-		        (CpEastDirection -> MygTronBoxElement playerRightIcon) } asDictionary.
-	^ dict at: self facing"
 	
 ^ Color yellow.
 ]
