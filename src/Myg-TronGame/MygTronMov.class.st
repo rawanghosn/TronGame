@@ -9,11 +9,6 @@ Class {
 	#category : #'Myg-TronGame-Model'
 }
 
-{ #category : #'default encoding' }
-MygTronMov class >> textualMapCharacter [ 
-^ self textualMapCharacter 
-]
-
 { #category : #'as yet unclassified' }
 MygTronMov >> addtrail [ 
 ^ self addtrail.
@@ -71,7 +66,7 @@ MygTronMov >> bringIn: anActor going: aDirection [
     when: BlKeyDownEvent do: [ :evt |
         keyDownBlockByKey at: evt key ifPresent: [ :aBlock | aBlock value ] ].
  self board endGame.
-	^ true .
+	^ false .
 ]
 
 { #category : #initialization }

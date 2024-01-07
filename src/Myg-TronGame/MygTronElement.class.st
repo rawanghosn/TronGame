@@ -10,6 +10,11 @@ MygTronElement class >> textualMapCharacter [
 ]
 
 { #category : #accessing }
+MygTronElement >> backgroundRepresentation [ 
+^ Color transparent 
+]
+
+{ #category : #accessing }
 MygTronElement >> basicPosition: aPosition [
 	"A position is a x,y kind of object."
 	

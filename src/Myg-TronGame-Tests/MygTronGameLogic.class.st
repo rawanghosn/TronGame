@@ -9,13 +9,30 @@ Class {
 
 { #category : #running }
 MygTronGameLogic >> setUp [
-
+   	| string manager boardElement|
 	super setUp.
+
+	string := '#@||||+#'.
+	manager := MygTronGameManager new.
+	manager launchFromString: string.
+	boardElement := manager currentBoardElement.
+	board := boardElement board.
 	
-	board := MygTronBoard createWithBoard:
-		         ((MygLevelImporter
-			          fromString: '#@||||+#'
-			          fromPackage: MygTronBoard package) do: [ :each | each configured ]).
+]
+
+{ #category : #tests }
+MygTronGameLogic >> testGameEnded [
+
+	self assert: board ended equals: false.
+	board moveStepsPlayer1:  {
+			CpDirection east.
+			CpDirection east.
+			CpDirection east.
+			CpDirection east.}.
+	self assert: board printString equals: '#----@+#'.
+	self deny: (board player1 move: CpDirection east). 
+	self assert: board printString equals: '#----@+#'.
+		self assert: board ended equals: true.
 ]
 
 { #category : #tests }

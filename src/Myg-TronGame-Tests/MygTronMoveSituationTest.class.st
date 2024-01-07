@@ -49,23 +49,49 @@ MygTronMoveSituationTest >> testPlayer1Available [
 { #category : #tests }
 MygTronMoveSituationTest >> testPlayer1BumpingInItsOwnTrail [
 
-	| board position player |
-	board := MygTronBoard createWithBoard:
-		         ((MygLevelImporter
-			           fromString: 
-'#----#
-#-@--#
-#|||+#'
-			           fromPackage: MygTronBoard package) do: [ :each |
-			          each configured ]).
-	player := board atColumn: 3 atRow: 2 .
-	position := board player1 position.
-	self deny: (board player1 move: CpDirection west).
-	self assert: board player1 position equals: position.
-	self assert: player position x equals: 3.
-	self assert: board asciiString equals: '#----#
-#-@--#
-#|||+#'
+	| string manager boardElement player board|
+	string := '#||||#
+#|||+#
+#|||@#'.
+	manager := MygTronGameManager new.
+	manager launchFromString: string.
+	boardElement := manager currentBoardElement.
+	board := boardElement board.
+	player := board atColumn: 5 atRow: 3 .
+	
+	board player1 move: CpDirection west.
+	self assert: board asciiString equals: '#||||#
+#|||+#
+#||@-#'.
+	self deny: (board player1 move: CpDirection east).
+	self assert: player position x equals: 4.
+	self assert: board asciiString equals: '#||||#
+#|||+#
+#||@-#'
+]
+
+{ #category : #tests }
+MygTronMoveSituationTest >> testPlayer1BumpingInPlayer2Trail [
+
+	| string manager boardElement player board|
+	string := '#||||#
+#|||+#
+#|||@#'.
+	manager := MygTronGameManager new.
+	manager launchFromString: string.
+	boardElement := manager currentBoardElement.
+	board := boardElement board.
+	player := board atColumn: 5 atRow: 3 .
+	
+	board player2 move: CpDirection west.
+	self assert: board asciiString equals: '#||||#
+#||+-#
+#|||@#'.
+	self deny: (board player1 move: CpDirection north).
+	self assert: player position x equals: 5.
+	self assert: board asciiString equals: '#||||#
+#||+-#
+#|||@#'
 ]
 
 { #category : #tests }
@@ -169,23 +195,49 @@ MygTronMoveSituationTest >> testPlayer2Available [
 { #category : #tests }
 MygTronMoveSituationTest >> testPlayer2BumpingInItsOwnTrail [
 
-	| board position player |
-	board := MygTronBoard createWithBoard:
-		         ((MygLevelImporter
-			           fromString: 
-'#----#
-#-+--#
-#|||@#'
-			           fromPackage: MygTronBoard package) do: [ :each |
-			          each configured ]).
-	player := board atColumn: 3 atRow: 2 .
-	position := board player2 position.
+	| string manager boardElement player board|
+	string := '#||||#
+#|||+#
+#|||@#'.
+	manager := MygTronGameManager new.
+	manager launchFromString: string.
+	boardElement := manager currentBoardElement.
+	board := boardElement board.
+	player := board atColumn: 5 atRow: 2 .
+	
+	board player2 move: CpDirection west.
+	self assert: board asciiString equals: '#||||#
+#||+-#
+#|||@#'.
 	self deny: (board player2 move: CpDirection east).
-	self assert: board player2 position equals: position.
-	self assert: player position x equals: 3.
-	self assert: board asciiString equals: '#----#
-#-+--#
+	self assert: player position x equals: 4.
+	self assert: board asciiString equals: '#||||#
+#||+-#
 #|||@#'
+]
+
+{ #category : #tests }
+MygTronMoveSituationTest >> testPlayer2BumpingInPlayer1Trail [
+
+	| string manager boardElement player board|
+	string := '#||||#
+#|||+#
+#|||@#'.
+	manager := MygTronGameManager new.
+	manager launchFromString: string.
+	boardElement := manager currentBoardElement.
+	board := boardElement board.
+	player := board atColumn: 5 atRow: 2 .
+	
+	board player1 move: CpDirection west.
+	self assert: board asciiString equals: '#||||#
+#|||+#
+#||@-#'.
+	self deny: (board player2 move: CpDirection south).
+	self assert: player position x equals: 5.
+	self assert: board asciiString equals:'#||||#
+#|||+#
+#||@-#'.
 ]
 
 { #category : #tests }
