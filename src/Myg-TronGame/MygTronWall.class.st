@@ -23,7 +23,7 @@ MygTronWall >> bringIn: anActor going: aDirection [
 	space pulse
 		extent:500 @ 500;
 		resizable: false.
-	title := self title.
+	title := self title: anActor.
 	space root addChild: title.
 
 	space root background: Color blue.
@@ -46,18 +46,6 @@ MygTronWall >> bringIn: anActor going: aDirection [
 ]
 
 { #category : #accessing }
-MygTronWall >> title [
-| title |
-title := BlElement new background: Color blue .
-	title constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-	title layout: BlFrameLayout new.
-	title addChild: ((BlTextElement new text: ('Game ended. Press Q to quit or S to restart.' asRopedText
-				   fontName: 'Phosphate';
-				   foreground: Color white;
-				   fontSize: 25)) constraintsDo: [ :c |
-			 c frame horizontal alignCenter.
-			 c frame vertical alignCenter ]).
-	^ title
+MygTronWall >> text: anActor [
+^ 'Oops,',anActor desc,' hit a wall ! Press Q to quit or S to restart.' .
 ]

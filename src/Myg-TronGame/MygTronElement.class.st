@@ -66,17 +66,23 @@ MygTronElement >> restafterbump: boardEl space: boardElspace board: boardElboard
 ]
 
 { #category : #accessing }
-MygTronElement >> title [
+MygTronElement >> text: anActor [
+^ 'Oops,',anActor desc,' lost ! Press Q to quit or S to restart.'
+]
+
+{ #category : #accessing }
+MygTronElement >> title: anActor [
 | title |
-title := BlElement new background: Color blue .
+
+title := BlElement new background: Color blue.
 	title constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
 	title layout: BlFrameLayout new.
-	title addChild: ((BlTextElement new text: ('Game ended. Press Q to quit or S to restart.' asRopedText
+	title addChild: ((BlTextElement new text: ( (self text: anActor) asRopedText
 				   fontName: 'Phosphate';
 				   foreground: Color white;
-				   fontSize: 25)) constraintsDo: [ :c |
+				   fontSize: 20)) constraintsDo: [ :c |
 			 c frame horizontal alignCenter.
 			 c frame vertical alignCenter ]).
 	^ title

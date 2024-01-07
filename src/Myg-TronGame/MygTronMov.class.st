@@ -46,7 +46,7 @@ MygTronMov >> bringIn: anActor going: aDirection [
 	space pulse
 		extent:500 @ 500;
 		resizable: false.
-	title := self title.
+	title := self title: anActor.
 	space root addChild: title.
 
 	space root background: Color blue.
@@ -80,6 +80,11 @@ MygTronMov >> configured [
 MygTronMov >> defaultBackground [
 
 	^ MygTronGround new
+]
+
+{ #category : #'as yet unclassified' }
+MygTronMov >> desc [
+^ self desc
 ]
 
 { #category : #accessing }

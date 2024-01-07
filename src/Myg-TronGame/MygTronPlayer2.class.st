@@ -20,6 +20,11 @@ MygTronPlayer2 >> backgroundRepresentation [
 ^ Color blue.
 ]
 
+{ #category : #'as yet unclassified' }
+MygTronPlayer2 >> desc [
+^ 'Player 2'
+]
+
 { #category : #testing }
 MygTronPlayer2 >> isPlayer2 [ 
 ^true

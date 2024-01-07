@@ -33,7 +33,7 @@ MygTronTrail >> bringIn: anActor going: aDirection [
 	space pulse
 		extent:500 @ 500;
 		resizable: false.
-	title := self title.
+	title := self title: anActor.
 	space root addChild: title.
 
 	space root background: Color blue.
@@ -63,21 +63,4 @@ MygTronTrail >> player [
 { #category : #accessing }
 MygTronTrail >> player: aPlayer [
  player:= aPlayer 
-]
-
-{ #category : #accessing }
-MygTronTrail >> title [
-| title |
-title := BlElement new background: Color blue .
-	title constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-	title layout: BlFrameLayout new.
-	title addChild: ((BlTextElement new text: ('Game ended. Press Q to quit or S to restart.' asRopedText
-				   fontName: 'Phosphate';
-				   foreground: Color white;
-				   fontSize: 25)) constraintsDo: [ :c |
-			 c frame horizontal alignCenter.
-			 c frame vertical alignCenter ]).
-	^ title
 ]
